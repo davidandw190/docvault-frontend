@@ -2,6 +2,17 @@ import { IResponse } from '../models/IResponse';
 
 export const BASE_URL = process.env.REACT_APP_API_URL! as string;
 
+export const isJsonContentType = (headers: Headers): boolean => {
+  const contentType = headers.get('Content-Type');
+  return contentType ? [
+    'application/vnd.api+json',
+    'application/json',
+    'application/vnd.hal+json',
+    'application/pdf',
+    'multipart/form-data',
+  ].includes(contentType.trimEnd()) : false;
+};
+
 export const processResponse = <T>(
   response: IResponse<T>,
   meta: any,
