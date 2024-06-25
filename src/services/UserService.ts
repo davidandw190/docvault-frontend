@@ -2,6 +2,7 @@ import { BASE_URL, isJsonContentType, processError, processResponse } from "../u
 
 import { IResponse } from "../models/IResponse";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { User } from "../models/IUser";
 
 export const userAPI = createApi({
   reducerPath: "userAPI",
