@@ -6,7 +6,7 @@ import {
 } from '../utils/request.utils';
 
 import { IResponse } from '../models/IResponse';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { User } from '../models/IUser';
 import { ILoginRequest } from '../models/ICredentails';
 
@@ -27,16 +27,16 @@ export const userAPI = createApi({
       keepUnusedDataFor: 120,
       transformResponse: processResponse<User>,
       transformErrorResponse: processError,
-      providesTags: (result, error) => ['User'],
+      providesTags: () => ['User'],
     }),
     loginUser: builder.mutation<IResponse<User>, ILoginRequest>({
       query: (credentials) => ({
-        url: '/login',
-        method: 'POST',
-        body: credentials,
+          url: '/login',
+          method: 'POST',
+          body: credentials
       }),
       transformResponse: processResponse<User>,
-      transformErrorResponse: processError,
-    }),
+      transformErrorResponse: processError
+  }),
   }),
 });
