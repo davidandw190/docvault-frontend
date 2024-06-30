@@ -1,63 +1,35 @@
-import { Link, Navigate, useLocation } from 'react-router-dom';
-
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { ILoginRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
-import QrCodeForm from './QrCodeForm';
+import { Link } from 'react-router-dom';
+import { SerializedError } from '@reduxjs/toolkit';
 import { useForm } from 'react-hook-form';
-import { userAPI } from '../services/UserService';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-// import { useLoginUserMutation } from '../services/UserService';
 
 const loginSchema = z.object({
   email: z.string().min(3, 'Email is required').email('Invalid email address'),
   password: z.string().min(5, 'Password is required'),
 });
 
-const Login: React.FC = () => {
-  const location = useLocation();
-  const isLoggedIn: boolean =
-    (JSON.parse(localStorage.getItem('')!) as boolean) || false;
-  const [loginUser, { data: response, error, isLoading, isSuccess }] =
-    userAPI.useLoginUserMutation();
+type Props = {
+  loginUser: (credentials: ILoginRequest) => void;
+  error: FetchBaseQueryError | SerializedError | undefined;
+  isLoading: boolean;
+};
 
-  const {
-    register,
-    handleSubmit,
-    formState: form,
-    getFieldState,
-  } = useForm<ILoginRequest>({
-    resolver: zodResolver(loginSchema),
-    mode: 'onTouched',
-  });
+const LoginForm = ({ loginUser, error, isLoading }: Props) => {
+  const { register, handleSubmit, formState, getFieldState } =
+    useForm<ILoginRequest>({
+      resolver: zodResolver(loginSchema),
+      mode: 'onTouched',
+    });
 
   const isFieldValid = (fieldName: keyof ILoginRequest): boolean =>
-    getFieldState(fieldName, form).isTouched &&
-    !getFieldState(fieldName).invalid;
+    getFieldState(fieldName, formState).isTouched &&
+    !getFieldState(fieldName, formState).invalid;
 
   const handleLogin = (credentials: ILoginRequest) => loginUser(credentials);
-
-  if (isLoggedIn) {
-    return location?.state?.from?.pathname ? (
-      <Navigate to={location.state.from.pathname} replace />
-    ) : (
-      <Navigate to="/" replace />
-    );
-  }
-
-  if (isSuccess && !response?.data.user.mfa) {
-    localStorage.setItem('login', 'true');
-    return location?.state?.from?.pathname ? (
-      <Navigate to={location.state.from.pathname} replace />
-    ) : (
-      <Navigate to="/" replace />
-    );
-  }
-
-  if (isSuccess && response?.data.user.mfa) {
-    return <QrCodeForm />;
-  }
 
   return (
     <div className="container">
@@ -97,7 +69,7 @@ const Login: React.FC = () => {
                         name="email"
                         autoComplete="on"
                         className={`form-control ' ${
-                          form.errors.email ? 'is-invalid' : ''
+                          formState.errors.email ? 'is-invalid' : ''
                         } 
                         ${isFieldValid('email') ? 'is-valid' : ''}`}
                         id="email"
@@ -106,7 +78,7 @@ const Login: React.FC = () => {
                         required
                       />
                       <div className="invalid-feedback">
-                        {form.errors.email?.message}
+                        {formState.errors.email?.message}
                       </div>
                     </div>
                   </div>
@@ -124,32 +96,34 @@ const Login: React.FC = () => {
                         name="password"
                         autoComplete="on"
                         className={`form-control ' ${
-                          form.errors.password ? 'is-invalid' : ''
+                          formState.errors.password ? 'is-invalid' : ''
                         } ${isFieldValid('password') ? 'is-valid' : ''}`}
                         placeholder="Password"
                         disabled={false}
                         required
                       />
                       <div className="invalid-feedback">
-                        {form.errors.password?.message}
+                        {formState.errors.password?.message}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col mt-3">
                   <button
-                    disabled={form.isSubmitting || isLoading}
+                    disabled={formState.isSubmitting || isLoading}
                     className="btn btn-primary btn-block"
                     type="submit"
                   >
-                    {(form.isSubmitting || isLoading) && (
+                    {(formState.isSubmitting || isLoading) && (
                       <span
                         className="spinner-border spinner-border-sm"
                         aria-hidden="true"
                       ></span>
                     )}
                     <span role="status">
-                      {form.isSubmitting || isLoading ? 'Loading...' : 'Login'}
+                      {formState.isSubmitting || isLoading
+                        ? 'Loading...'
+                        : 'Login'}
                     </span>
                   </button>
                 </div>
@@ -177,4 +151,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
