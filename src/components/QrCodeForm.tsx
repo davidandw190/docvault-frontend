@@ -1,6 +1,7 @@
 import { QrCodeRequest } from '../models/ICredentails';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { userAPI } from '../services/UserService';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -35,6 +36,8 @@ const qrCodeSchema = z.object({
 const QrCodeForm: React.FC = () => {
   const navigate = useNavigate();
 
+  const [verifyQrCode, { data: response, isLoading, error, isSuccess }] = userAPI.useVerifyMfaQrCodeMutation();
+
   const {
     register,
     handleSubmit,
@@ -44,6 +47,11 @@ const QrCodeForm: React.FC = () => {
     resolver: zodResolver(qrCodeSchema),
     mode: 'onTouched',
   });
+
+  const onVerifyQrCode = async (qrCode: QrCodeRequest) => {
+    qrCode = {...qrCode, qrCode: `${qrCode.qrCode1}${qrCode.qrCode2}${qrCode.qrCode3}${qrCode.qrCode4}${qrCode.qrCode5}${qrCode.qrCode6}`}
+    await verifyQrCode(qrCode);
+  }
 
   const isFieldValid = (fieldName: keyof QrCodeRequest): boolean =>
     getFieldState(fieldName, form).isTouched &&

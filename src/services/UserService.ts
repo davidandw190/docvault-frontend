@@ -8,7 +8,7 @@ import {
 import { IResponse } from '../models/IResponse';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { User } from '../models/IUser';
-import { ILoginRequest } from '../models/ICredentails';
+import { ILoginRequest, QrCodeRequest } from '../models/ICredentails';
 
 export const userAPI = createApi({
   reducerPath: 'userAPI',
@@ -31,12 +31,22 @@ export const userAPI = createApi({
     }),
     loginUser: builder.mutation<IResponse<User>, ILoginRequest>({
       query: (credentials) => ({
-          url: '/login',
-          method: 'POST',
-          body: credentials
+        url: '/login',
+        method: 'POST',
+        body: credentials,
       }),
       transformResponse: processResponse<User>,
-      transformErrorResponse: processError
+      transformErrorResponse: processError,
+    }),
+    verifyMfaQrCode: builder.mutation<IResponse<User>, QrCodeRequest>({
+      query: (qrCodeRequest) => ({
+          url: '/verify/qrcode',
+          method: 'POST',
+          body: qrCodeRequest
+      }),
+      transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => error ? [] : ['User']
   }),
   }),
 });
