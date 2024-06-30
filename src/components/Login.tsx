@@ -2,6 +2,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 
 import { ILoginRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
+import QrCodeForm from './QrCodeForm';
 import { useForm } from 'react-hook-form';
 import { userAPI } from '../services/UserService';
 import { z } from 'zod';
@@ -18,7 +19,7 @@ const Login: React.FC = () => {
   const location = useLocation();
   const isLoggedIn: boolean =
     (JSON.parse(localStorage.getItem('')!) as boolean) || false;
-  const [loginUser, { data, error, isLoading, isSuccess }] =
+  const [loginUser, { data: response, error, isLoading, isSuccess }] =
     userAPI.useLoginUserMutation();
 
   const {
@@ -45,7 +46,7 @@ const Login: React.FC = () => {
     );
   }
 
-  if (isSuccess && !data?.data.user.mfa) {
+  if (isSuccess && !response?.data.user.mfa) {
     localStorage.setItem('login', 'true');
     return location?.state?.from?.pathname ? (
       <Navigate to={location.state.from.pathname} replace />
@@ -54,9 +55,8 @@ const Login: React.FC = () => {
     );
   }
 
-  if (isSuccess && data?.data.user.mfa) {
-    // TODO: Return MFA component
-    return;
+  if (isSuccess && response?.data.user.mfa) {
+    return <QrCodeForm />;
   }
 
   return (
