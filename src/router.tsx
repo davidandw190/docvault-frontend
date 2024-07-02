@@ -6,14 +6,14 @@ import {
 } from 'react-router-dom';
 
 import App from './App';
-import LoginPage from './pages/LoginPage';
+import Login from './pages/Login';
 import NavBar from './components/NavBar';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       {/* Public Routes */}
-      <Route path="login" element={<LoginPage />} />
+      <Route path="login" element={<Login />} />
       {/* Protected Routes */}
       <Route element={<NavBar />}>
         <Route index path='/documents' element={'documents'} />

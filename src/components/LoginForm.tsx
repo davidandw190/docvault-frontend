@@ -18,6 +18,14 @@ type Props = {
   isLoading: boolean;
 };
 
+/**
+ * LoginForm component handles user login form rendering and validation.
+ * It uses `react-hook-form` with `zod` for schema validation and displays
+ * errors accordingly.
+ * 
+ * @component
+ * @param {Props} props - Props including loginUser function, error state, and loading state.
+ */
 const LoginForm = ({ loginUser, error, isLoading }: Props) => {
   const { register, handleSubmit, formState, getFieldState } =
     useForm<ILoginRequest>({

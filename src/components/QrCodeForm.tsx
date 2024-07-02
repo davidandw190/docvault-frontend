@@ -38,6 +38,13 @@ const qrCodeSchema = z.object({
   userId: z.string().min(5, 'User ID is required'),
 });
 
+/**
+ * QrCodeForm component handles the input and verification of the MFA QR code.
+ * It uses `react-hook-form` with `zod` for schema validation.
+ *
+ * @component
+ * @param {Props} props - Props including the QR code fields and the userId.
+ */
 const QrCodeForm = ({ userId }: Props) => {
   const {
     register,

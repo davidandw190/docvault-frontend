@@ -13,6 +13,12 @@ const NavBar: React.FC = () => {
     navigate('/login');
   }
 
+  /**
+ * NavBar component renders the navigation bar with links and user profile dropdown.
+ * It fetches user data using Redux Toolkit query and manages logout functionality.
+ * 
+ * @component
+ */
   return (
     <>
       <nav

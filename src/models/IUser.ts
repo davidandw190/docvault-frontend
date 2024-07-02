@@ -1,3 +1,8 @@
+/**
+ * Interface representing a user object.
+ * 
+ * @interface
+ */
 export interface IUser {
   id: number;
   userId: string;
@@ -22,8 +27,23 @@ export interface IUser {
   authorities: string;
 }
 
+/**
+ * Type representing a user role object.
+ * 
+ * @type
+ */
 export type Role = { role: string }
 
+/**
+ * Type representing a user wrapper object.
+ * 
+ * @type
+ */
 export type User = { user: IUser };
 
+/**
+ * Type representing a collection of users.
+ * 
+ * @type
+ */
 export type Users = { users: IUser[] };

@@ -4,11 +4,18 @@ import LoginForm from '../components/LoginForm';
 import QrCodeForm from '../components/QrCodeForm';
 import { userAPI } from '../services/UserService';
 
-const LoginPage: React.FC = () => {
+/**
+ * Login component handles user login and multi-factor authentication (MFA).
+ * It uses `useLocation` to redirect users after a successful login and manages
+ * the login state using local storage cookies and Redux Toolkit Query.
+ * 
+ * @component
+ */
+const Login: React.FC = () => {
   const location = useLocation();
   const isLoggedIn =
     (JSON.parse(localStorage.getItem('')!) as boolean) || false;
-  const [loginUser, { data, error, isLoading, isSuccess }] =
+  const [loginUser, { data: response, error, isLoading, isSuccess }] =
     userAPI.useLoginUserMutation();
 
   if (isLoggedIn) {
@@ -19,7 +26,7 @@ const LoginPage: React.FC = () => {
     );
   }
 
-  if (isSuccess && !data?.data.user.mfa) {
+  if (isSuccess && !response?.data.user.mfa) {
     localStorage.setItem('logged-in', 'true');
     return location?.state?.from?.pathname ? (
       <Navigate to={location?.state?.from?.pathname} replace />
@@ -28,8 +35,8 @@ const LoginPage: React.FC = () => {
     );
   }
 
-  if (isSuccess && data?.data.user.mfa) {
-    return <QrCodeForm userId={data.data.user.userId} />;
+  if (isSuccess && response?.data.user.mfa) {
+    return <QrCodeForm userId={response.data.user.userId} />;
   }
 
   return (
@@ -37,4 +44,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
