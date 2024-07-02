@@ -8,6 +8,21 @@ import { IUser } from './IUser';
 export interface ILoginRequest {
   email: string;
   password: string;
+  rememberMe?: boolean;
+}
+
+/**
+ * Interface representing a registration request payload.
+ * 
+ * @extends {ILoginRequest}
+ * 
+ * @interface
+ */
+export interface IRegistrationRequest extends ILoginRequest {
+  firstName: string;
+  lastName: string;
+  phone?: string;
+  bio?: string;
   confirmPassword?: string;
 }
 
