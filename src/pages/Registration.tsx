@@ -1,5 +1,7 @@
 import { IRegistrationRequest } from '../models/ICredentails';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { userAPI } from '../services/UserService';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -12,7 +14,10 @@ const registrationSchema = z.object({
 });
 
 const Registration: React.FC = () => {
-  const { register, handleSubmit, formState, getFieldState } =
+  const [registerUser, { data: response, isLoading, error, isSuccess }] =
+    userAPI.useRegisterUserMutation;
+
+  const { register, reset, handleSubmit, formState, getFieldState } =
     useForm<IRegistrationRequest>({
       resolver: zodResolver(registrationSchema),
       mode: 'onTouched',
@@ -21,6 +26,13 @@ const Registration: React.FC = () => {
   const isFieldValid = (fieldName: keyof IRegistrationRequest): boolean =>
     getFieldState(fieldName, formState).isTouched &&
     !getFieldState(fieldName, formState).invalid;
+
+  const handleRegistration = async (credentials: IRegistrationRequest) =>
+    await registerUser(credentials);
+
+  useEffect(() => {
+    reset();
+  }, [isSuccess, reset]);
 
   return <p>Registration</p>;
 };
