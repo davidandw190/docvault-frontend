@@ -1,5 +1,7 @@
+import { Link, Navigate, useLocation } from 'react-router-dom';
+
+import { CacheKey } from '../enums/cache.key';
 import { IResponse } from '../models/IResponse';
-import { Link } from 'react-router-dom';
 import { QrCodeRequest } from '../models/ICredentails';
 import { useForm } from 'react-hook-form';
 import { userAPI } from '../services/UserService';
@@ -46,6 +48,7 @@ const qrCodeSchema = z.object({
  * @param {Props} props - Props including the QR code fields and the userId.
  */
 const QrCodeForm = ({ userId }: Props) => {
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -55,8 +58,10 @@ const QrCodeForm = ({ userId }: Props) => {
     resolver: zodResolver(qrCodeSchema),
     mode: 'onTouched',
   });
-  const [verifyQrCode, { error, isLoading }] =
-    userAPI.useVerifyMfaQrCodeMutation();
+  const [
+    verifyQrCode,
+    { error, isLoading, isSuccess: isValidationSuccessful },
+  ] = userAPI.useVerifyMfaQrCodeMutation();
 
   const isQrCodeFieldValid = (fieldName: keyof QrCodeRequest): boolean =>
     getFieldState(fieldName, form).isTouched &&
@@ -70,6 +75,15 @@ const QrCodeForm = ({ userId }: Props) => {
     };
     await verifyQrCode(qrCode);
   };
+
+  if (isValidationSuccessful) {
+    localStorage.setItem(CacheKey.LOGGED_IN, 'true');
+    return location?.state?.from?.pathname ? (
+      <Navigate to={location?.state?.from?.pathname} replace />
+    ) : (
+      <Navigate to={'/'} replace />
+    );
+  }
 
   return (
     <div className="container mtb">

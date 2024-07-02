@@ -1,3 +1,4 @@
+import { CacheKey } from '../enums/cache.key';
 import { IResponse } from '../models/IResponse';
 
 export const BASE_URL = process.env.REACT_APP_API_URL! as string;
@@ -20,7 +21,7 @@ export const processResponse = <T>(
 ): IResponse<T> => {
   const { request } = meta;
   if (request.url.includes('logout')) {
-    localStorage.removeItem('key');
+    localStorage.removeItem(CacheKey.LOGGED_IN);
   }
   if (!request.url.includes('profile')) {
     // TODO: Toast notif
@@ -42,7 +43,7 @@ export const processError = (
     error.data.message === 'You are not logged in'
   ) {
     // TODO: Finish local storage tokens clear on logout
-    localStorage.setItem('', '');
+    localStorage.setItem(CacheKey.LOGGED_IN, 'false');
   }
   // TODO: Toast notif
 

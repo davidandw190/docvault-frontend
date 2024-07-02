@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
+import { CacheKey } from '../enums/cache.key';
 import LoginForm from '../components/LoginForm';
 import QrCodeForm from '../components/QrCodeForm';
 import { userAPI } from '../services/UserService';
@@ -14,7 +15,7 @@ import { userAPI } from '../services/UserService';
 const Login: React.FC = () => {
   const location = useLocation();
   const isLoggedIn =
-    (JSON.parse(localStorage.getItem('')!) as boolean) || false;
+    (JSON.parse(localStorage.getItem(CacheKey.LOGGED_IN)!) as boolean) || false;
   const [loginUser, { data: response, error, isLoading, isSuccess }] =
     userAPI.useLoginUserMutation();
 
@@ -27,7 +28,7 @@ const Login: React.FC = () => {
   }
 
   if (isSuccess && !response?.data.user.mfa) {
-    localStorage.setItem('logged-in', 'true');
+    localStorage.setItem(CacheKey.LOGGED_IN, 'true');
     return location?.state?.from?.pathname ? (
       <Navigate to={location?.state?.from?.pathname} replace />
     ) : (
