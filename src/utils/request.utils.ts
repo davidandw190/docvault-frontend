@@ -1,4 +1,5 @@
 import { CacheKey } from '../enums/cache.key';
+import { FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 import { IResponse } from '../models/IResponse';
 
 export const BASE_URL = process.env.REACT_APP_API_URL! as string;
@@ -16,7 +17,7 @@ export const isJsonContentType = (headers: Headers): boolean => {
 
 export const processResponse = <T>(
   response: IResponse<T>,
-  meta: any,
+  meta: FetchBaseQueryMeta,
   arg: unknown
 ): IResponse<T> => {
   const { request } = meta;

@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
  *
  * @returns {ReturnType<typeof configureStore>} Configured Redux store.
  */
-export const setupStore = () => {
+export const setupStore = (): ReturnType<typeof configureStore> => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
