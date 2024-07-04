@@ -17,8 +17,8 @@ const registrationSchema = z
       .string()
       .min(3, 'Email is required')
       .email('Invalid email address'),
-    password: z.string().min(5, 'Password is required'),
-    confirmPassword: z.string().min(5, 'Password confirmation is required'),
+    password: z.string().min(1, 'Password is required'),
+    confirmPassword: z.string().min(1, 'Password confirmation is required.'),
   })
   .refine((formData) => formData.password === formData.confirmPassword, {
     message: "Passwords don't match. Please check again.",
@@ -231,7 +231,7 @@ const Registration: React.FC = () => {
                         name="password"
                         className={`form-control ' ${
                           formState.errors.password ? 'is-invalid' : ''
-                        } ${isFieldValid('password') ? 'is-valid' : ''}`}
+                        } ${isFieldValid('password') && passwordStrength >= 2 ? 'is-valid' : ''}`}
                         placeholder="Password"
                         disabled={isLoading}
                         required

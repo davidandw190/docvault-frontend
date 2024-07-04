@@ -2,7 +2,7 @@ import { CacheKey } from '../enums/cache.key';
 import { FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 import { IResponse } from '../models/IResponse';
 
-export const BASE_URL = 'http://localhost:3000/api/v1';
+export const BASE_URL = import.meta.env.BACKEND_BASE_URL as string;
 
 export const isJsonContentType = (headers: Headers): boolean => {
   const contentType = headers.get('Content-Type');
