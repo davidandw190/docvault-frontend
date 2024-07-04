@@ -1,29 +1,47 @@
+import { useEffect, useState } from 'react';
+
 import { IRegistrationRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { userAPI } from '../services/UserService';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import zxcvbn from 'zxcvbn';
 
-const registrationSchema = z.object({
-  firstName: z.string().min(3, 'First name is required'),
-  lastName: z.string().min(3, 'Last name is required'),
-  email: z.string().min(3, 'Email is required').email('Invalid email address'),
-  password: z.string().min(5, 'Password is required'),
-  confirmPassword: z.string().min(5, 'Password is required'),
-});
+const registrationSchema = z
+  .object({
+    firstName: z.string().min(3, 'First name is required'),
+    lastName: z.string().min(3, 'Last name is required'),
+    email: z
+      .string()
+      .min(3, 'Email is required')
+      .email('Invalid email address'),
+    password: z.string().min(5, 'Password is required'),
+    confirmPassword: z.string().min(5, 'Password confirmation is required'),
+  })
+  .refine((formData) => formData.password === formData.confirmPassword, {
+    message: "Passwords don't match. Please check again.",
+    path: ['confirmPassword'],
+  });
 
+/**
+ * Registration component that handles user registration with form validation,
+ * password confirmation, and password strength evaluation.
+ *
+ * @component
+ */
 const Registration: React.FC = () => {
   const [registerUser, { data: response, isLoading, error, isSuccess }] =
     userAPI.useRegisterUserMutation();
 
-  const { register, reset, handleSubmit, formState, getFieldState } =
+  const { register, reset, handleSubmit, formState, getFieldState, watch } =
     useForm<IRegistrationRequest>({
       resolver: zodResolver(registrationSchema),
       mode: 'onTouched',
     });
+
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
   const isFieldValid = (fieldName: keyof IRegistrationRequest): boolean =>
     getFieldState(fieldName, formState).isTouched &&
@@ -35,6 +53,64 @@ const Registration: React.FC = () => {
   useEffect(() => {
     reset();
   }, [isSuccess, reset]);
+
+  const password = watch('password', '');
+
+  useEffect(() => {
+    const strength = zxcvbn(password).score;
+    setPasswordStrength(strength);
+  }, [password]);
+
+  const passwordStrengthClass = () => {
+    switch (passwordStrength) {
+      case 0:
+        return 'text-danger';
+      case 1:
+        return 'text-warning';
+      case 2:
+        return 'text-info';
+      case 3:
+        return 'text-primary';
+      case 4:
+        return 'text-success';
+      default:
+        return '';
+    }
+  };
+
+  const progressBarClass = () => {
+    switch (passwordStrength) {
+      case 0:
+        return 'bg-danger';
+      case 1:
+        return 'bg-warning';
+      case 2:
+        return 'bg-info';
+      case 3:
+        return 'bg-primary';
+      case 4:
+        return 'bg-success';
+      default:
+        return '';
+    }
+  };
+
+  const passwordStrengthMessage = () => {
+    switch (passwordStrength) {
+      case 0:
+        return 'Weak';
+      case 1:
+        return 'Almost There';
+      case 2:
+        return 'Good';
+      case 3:
+        return 'Strong';
+      case 4:
+        return 'Very Strong';
+      default:
+        return '';
+    }
+  };
 
   return (
     <div className="container">
@@ -164,6 +240,23 @@ const Registration: React.FC = () => {
                         {formState.errors.password?.message}
                       </div>
                     </div>
+                    {password && (
+                      <>
+                        <div className="progress mt-2" style={{ height: '5px' }}>
+                      <div
+                        className={`progress-bar ${progressBarClass()}`}
+                        role="progressbar"
+                        style={{ width: `${(passwordStrength + 1) * 20}%` }}
+                        aria-valuenow={(passwordStrength + 1) * 20}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      ></div>
+                        </div>
+                        <small className={`form-text ${passwordStrengthClass()}`}>
+                      Strength: {passwordStrengthMessage()}
+                    </small>
+                      </>
+                    )}
                   </div>
 
                   <div className="col-12">
@@ -194,7 +287,7 @@ const Registration: React.FC = () => {
                 <hr className="my-4" />
                 <div className="col">
                   <button
-                    disabled={formState.isSubmitting || isLoading}
+                    disabled={formState.isSubmitting || isLoading || !formState.isValid || passwordStrength < 3}
                     className="btn btn-primary"
                     type="submit"
                   >

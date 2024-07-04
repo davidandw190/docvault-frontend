@@ -8,12 +8,14 @@ import {
 import App from './App';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
+import Registration from './pages/Registration';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       {/* Public Routes */}
       <Route path="login" element={<Login />} />
+      <Route path='register' element={<Registration />} />
       {/* Protected Routes */}
       <Route element={<NavBar />}>
         <Route index path='/documents' element={'documents'} />
