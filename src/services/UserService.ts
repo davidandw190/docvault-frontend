@@ -60,6 +60,12 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
+    verifyAccount: builder.mutation<IResponse<void>, string>({
+      query: (key) => ({
+        url: `/verify/account?key=${key}`,
+        method: 'GET',
+      }),
+    }),
     verifyMfaQrCode: builder.mutation<IResponse<User>, QrCodeRequest>({
       query: (qrCodeRequest) => ({
         url: '/verify/qrcode',
