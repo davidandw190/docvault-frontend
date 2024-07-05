@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
+import { CacheKey } from '../../enums/cache.key';
 import NavBarLinks from './NavBarLinks';
 import UserProfileDropdown from './UserProfileDropdown';
 import appLogo from '../../assets/logo.png';
@@ -20,8 +21,12 @@ const NavBar: React.FC = () => {
     // refetch,
   } = userAPI.useFetchUserQuery();
 
+  const [logoutUser] = userAPI.useLogoutUserMutation();
+
   const onLogout = async () => {
-    // TODO: Implement logout
+    localStorage.removeItem(CacheKey.LOGGED_IN);
+    localStorage.removeItem(CacheKey.ROLE);
+    await logoutUser();
     navigate('/login');
   };
 

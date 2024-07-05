@@ -51,6 +51,15 @@ export const userAPI = createApi({
       transformResponse: processResponse<void>,
       transformErrorResponse: processError,
     }),
+    logoutUser: builder.mutation<IResponse<void>, void>({
+      query: () => ({
+        url: '/logout',
+        method: 'POST',
+      }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
     verifyMfaQrCode: builder.mutation<IResponse<User>, QrCodeRequest>({
       query: (qrCodeRequest) => ({
         url: '/verify/qrcode',
