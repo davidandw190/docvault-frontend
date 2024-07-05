@@ -7,7 +7,7 @@ import {
 
 import App from './App';
 import Login from './pages/Login';
-import NavBar from './components/NavBar';
+import NavBar from './components/navigation/NavBar';
 import Registration from './pages/Registration';
 
 const router = createBrowserRouter(

@@ -1,6 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { ILoginRequest } from '../models/ICredentails';
-import { IResponse } from '../models/IResponse';
+import { ILoginRequest } from '../../models/ICredentails';
+import { IResponse } from '../../models/IResponse';
 import { Link } from 'react-router-dom';
 import { SerializedError } from '@reduxjs/toolkit';
 import { useForm } from 'react-hook-form';

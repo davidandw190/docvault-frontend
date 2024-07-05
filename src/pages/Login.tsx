@@ -1,8 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { CacheKey } from '../enums/cache.key';
-import LoginForm from '../components/LoginForm';
-import QrCodeForm from '../components/QrCodeForm';
+import LoginForm from '../components/auth/LoginForm';
+import QrCodeForm from '../components/auth/QrCodeForm';
 import { userAPI } from '../services/UserService';
 
 /**

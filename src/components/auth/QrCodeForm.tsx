@@ -1,10 +1,10 @@
 import { Link, Navigate, useLocation } from 'react-router-dom';
 
-import { CacheKey } from '../enums/cache.key';
-import { IResponse } from '../models/IResponse';
-import { QrCodeRequest } from '../models/ICredentails';
+import { CacheKey } from '../../enums/cache.key';
+import { IResponse } from '../../models/IResponse';
+import { QrCodeRequest } from '../../models/ICredentails';
 import { useForm } from 'react-hook-form';
-import { userAPI } from '../services/UserService';
+import { userAPI } from '../../services/UserService';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { IRegistrationRequest } from '../models/ICredentails';
+import { IRegistrationRequest } from '../../models/ICredentails';
 import PassStrengthBar from './PassStrengthBar';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

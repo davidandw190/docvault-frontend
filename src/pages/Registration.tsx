@@ -1,7 +1,7 @@
 import { IRegistrationRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
 import { Link } from 'react-router-dom';
-import RegistrationForm from '../components/RegistrationForm';
+import RegistrationForm from '../components/auth/RegistrationForm';
 import { userAPI } from '../services/UserService';
 
 const Registration: React.FC = () => {

@@ -1,4 +1,4 @@
-import { IUser } from '../models/IUser';
+import { IUser } from '../../models/IUser';
 import { NavLink } from 'react-router-dom';
 
 type Props = {

@@ -1,10 +1,9 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
 import NavBarLinks from './NavBarLinks';
-import React from 'react';
 import UserProfileDropdown from './UserProfileDropdown';
-import appLogo from '../assets/logo.png';
-import { userAPI } from '../services/UserService';
+import appLogo from '../../assets/logo.png';
+import { userAPI } from '../../services/UserService';
 
 /**
  * NavBar component renders the navigation bar with links and user profile dropdown.
