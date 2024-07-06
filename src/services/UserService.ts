@@ -9,6 +9,7 @@ import { IResponse } from '../models/IResponse';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { User } from '../models/IUser';
 import {
+  ForgotPasswordRequest,
   ILoginRequest,
   IRegistrationRequest,
   QrCodeRequest,
@@ -70,12 +71,22 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
     }),
     verifyMfaQrCode: builder.mutation<IResponse<User>, QrCodeRequest>({
-      query: (qrCodeRequest) => ({
+      query: (qrCode) => ({
         url: '/verify/qrcode',
         method: Http.PATCH,
-        body: qrCodeRequest,
+        body: qrCode,
       }),
       transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    forgotPassword: builder.mutation<IResponse<void>, ForgotPasswordRequest>({
+      query: (forgotPasswordRequest) => ({
+        url: '/forgot-password',
+        method: Http.POST,
+        body: forgotPasswordRequest,
+      }),
+      transformResponse: processResponse<void>,
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),

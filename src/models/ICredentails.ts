@@ -40,3 +40,5 @@ export type QrCodeRequest = Pick<IUser, 'userId'> & {
   qrCode5: string;
   qrCode6: string;
 };
+
+export type ForgotPasswordRequest = Pick<IUser, 'email'>;
