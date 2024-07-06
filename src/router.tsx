@@ -18,6 +18,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path='register' element={<Registration />} />
       <Route path='verify/account' element={<AccountVerification />} />
+      <Route path='reset-password' element={'reset-password'} />
       {/* Protected Routes */}
       <Route element={<NavBar />}>
         <Route index path='/documents' element={'documents'} />
