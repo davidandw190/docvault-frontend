@@ -1,16 +1,21 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
 import CacheKey from '../enums/cache.key';
-import { z } from 'zod';
-
-const schema = z.object({
-  email: z.string().min(3, 'Email is required').email('Invalid email address'),
-});
+import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
+import { ForgotPasswordRequest } from '../models/ICredentails';
+import { userAPI } from '../services/UserService';
 
 const FogottenPassword: React.FC = () => {
   const location = useLocation();
   const isLoggedIn: boolean =
     (JSON.parse(localStorage.getItem(CacheKey.LOGGED_IN)!) as boolean) || false;
+
+  const [forgotPassword, { data: response, error, isLoading, isSuccess }] =
+    userAPI.useForgotPasswordMutation();
+
+  const onForgotPassword = async (request: ForgotPasswordRequest) => {
+    forgotPassword(request);
+  };
 
   if (isLoggedIn) {
     return location?.state?.from?.pathname ? (
@@ -29,10 +34,13 @@ const FogottenPassword: React.FC = () => {
         >
           <div className="card">
             <div className="card-body">
-            <h4 className="mb-3">Request Password Reset</h4>
-            <hr />
-            {/* TODO: Add a Forgotten Password Form here */}
-            {/* TODO #2: Make the action links configurable and add them here */}
+              <h4 className="mb-3">Request Password Reset</h4>
+              <hr />
+              <ForgotPasswordForm
+                onSubmit={onForgotPassword}
+                isLoading={isLoading}
+              />
+              {/* TODO #2: Make the action links configurable and add them here */}
             </div>
           </div>
         </div>
