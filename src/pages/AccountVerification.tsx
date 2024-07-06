@@ -1,3 +1,8 @@
+import { IResponse } from '../models/IResponse';
+import { InvalidLinkMessage } from '../components/auth/InvalidLinkMessage';
+import VerificationErrorMessage from '../components/auth/VerificationErrorMessage';
+import VerificationSuccessMessage from '../components/auth/VerificationSuccessMessage';
+import VerifyingAccount from '../components/auth/VerifyingAccount';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { userAPI } from '../services/UserService';
@@ -17,24 +22,33 @@ const AccountVerification: React.FC = () => {
 
   const renderContent = () => {
     if (!key) {
-      // TODO: Make a dedicated component for this
-      return <span>Invalid Link</span>;
+      return <InvalidLinkMessage />;
     }
 
     if (isLoading) {
-
-      // TODO: Make a dedicated component for this
-      return <span>Verifying account...</span>;
+      return <VerifyingAccount />;
     }
 
     if (error) {
-      // TODO: Make a dedicated component for this
-      return <span>Error</span>;
+      return (
+        <VerificationErrorMessage
+          message={
+            'data' in error
+              ? (error.data as IResponse<void>).message!
+              : 'An error occurred. Please try again later.'
+          }
+        />
+      );
     }
 
     if (isSuccess) {
-      // TODO: Make a dedicated component for this
-      return <span>Account verified successfully</span>;
+      return (
+        <VerificationSuccessMessage
+          message={
+            'Your account has been verified successfully. You can proceed to log in now.'
+          }
+        />
+      );
     }
   };
 
@@ -48,7 +62,7 @@ const AccountVerification: React.FC = () => {
           <div className="card">
             <div className="card-body">
               {renderContent()}
-             {/* TODO: Add action links */}
+              {/* TODO: Add action links */}
             </div>
           </div>
         </div>
