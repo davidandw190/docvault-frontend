@@ -1,5 +1,6 @@
 import { IResponse } from '../models/IResponse';
 import { InvalidLinkMessage } from '../components/auth/InvalidLinkMessage';
+import VerificationActionLinks from '../components/auth/VerificationActionLinks';
 import VerificationErrorMessage from '../components/auth/VerificationErrorMessage';
 import VerificationSuccessMessage from '../components/auth/VerificationSuccessMessage';
 import VerifyingAccount from '../components/auth/VerifyingAccount';
@@ -7,6 +8,13 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { userAPI } from '../services/UserService';
 
+/**
+ * Verifies a user's account using a key from the URL query parameters.
+ * It extracts a verification key from the URL query parameters, triggers an API 
+ * call to verify the account if the key is present.
+ * 
+ * @component
+ */
 const AccountVerification: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -62,7 +70,7 @@ const AccountVerification: React.FC = () => {
           <div className="card">
             <div className="card-body">
               {renderContent()}
-              {/* TODO: Add action links */}
+              <VerificationActionLinks />
             </div>
           </div>
         </div>
