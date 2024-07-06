@@ -13,6 +13,7 @@ import {
   IRegistrationRequest,
   QrCodeRequest,
 } from '../models/ICredentails';
+import Http from '../enums/http.method';
 
 export const userAPI = createApi({
   reducerPath: 'userAPI',
@@ -26,7 +27,7 @@ export const userAPI = createApi({
     fetchUser: builder.query<IResponse<User>, void>({
       query: () => ({
         url: '/profile',
-        method: 'GET',
+        method: Http.GET,
       }),
       keepUnusedDataFor: 120,
       transformResponse: processResponse<User>,
@@ -36,7 +37,7 @@ export const userAPI = createApi({
     loginUser: builder.mutation<IResponse<User>, ILoginRequest>({
       query: (credentials) => ({
         url: '/login',
-        method: 'POST',
+        method: Http.POST,
         body: credentials,
       }),
       transformResponse: processResponse<User>,
@@ -45,7 +46,7 @@ export const userAPI = createApi({
     registerUser: builder.mutation<IResponse<void>, IRegistrationRequest>({
       query: (registrationRequest) => ({
         url: '/register',
-        method: 'POST',
+        method: Http.POST,
         body: registrationRequest,
       }),
       transformResponse: processResponse<void>,
@@ -54,7 +55,7 @@ export const userAPI = createApi({
     logoutUser: builder.mutation<IResponse<void>, void>({
       query: () => ({
         url: '/logout',
-        method: 'POST',
+        method: Http.POST,
       }),
       transformResponse: processResponse<void>,
       transformErrorResponse: processError,
@@ -63,13 +64,15 @@ export const userAPI = createApi({
     verifyAccount: builder.mutation<IResponse<void>, string>({
       query: (key) => ({
         url: `/verify/account?key=${key}`,
-        method: 'GET',
+        method: Http.PATCH,
       }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
     }),
     verifyMfaQrCode: builder.mutation<IResponse<User>, QrCodeRequest>({
       query: (qrCodeRequest) => ({
         url: '/verify/qrcode',
-        method: 'POST',
+        method: Http.PATCH,
         body: qrCodeRequest,
       }),
       transformResponse: processResponse<User>,

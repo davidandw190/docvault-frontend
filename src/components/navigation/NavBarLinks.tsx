@@ -1,10 +1,11 @@
-import { IUser } from "../../models/IUser";
-import { NavLink } from "react-router-dom";
-import React from "react";
+import AccountRoles from '../../enums/account.role';
+import { IUser } from '../../models/IUser';
+import { NavLink } from 'react-router-dom';
+import React from 'react';
 
 type Props = {
   user: IUser | undefined;
-}
+};
 
 const NavBarLinks: React.FC<Props> = ({ user }: Props) => {
   return (
@@ -14,7 +15,8 @@ const NavBarLinks: React.FC<Props> = ({ user }: Props) => {
           Documents
         </NavLink>
       </li>
-      {user?.role === 'ADMIN' && (
+      {(user?.role === AccountRoles.ADMIN ||
+        user?.role === AccountRoles.SYS_ADMIN) && (
         <li className="nav-item">
           <NavLink to="/users" end className="nav-link">
             Members
@@ -23,6 +25,6 @@ const NavBarLinks: React.FC<Props> = ({ user }: Props) => {
       )}
     </ul>
   );
-}
+};
 
 export default NavBarLinks;

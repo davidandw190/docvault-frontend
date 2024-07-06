@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
-import { CacheKey } from '../../enums/cache.key';
+import CacheKey from '../../enums/cache.key';
 import NavBarLinks from './NavBarLinks';
 import UserProfileDropdown from './UserProfileDropdown';
 import appLogo from '../../assets/logo.png';
