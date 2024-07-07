@@ -90,5 +90,15 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
+    verifyResetPassword: builder.mutation<IResponse<User>, string>({
+      query: (key) => ({
+        url: `/verify/reset-password?key=${key}`,
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    
   }),
 });
