@@ -1,4 +1,4 @@
-import { CacheKey } from '../enums/cache.key';
+import CacheKey from '../enums/cache.key';
 import { FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
 import { IResponse } from '../models/IResponse';
 

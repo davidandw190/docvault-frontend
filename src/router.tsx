@@ -7,6 +7,7 @@ import {
 
 import AccountVerification from './pages/AccountVerification';
 import App from './App';
+import ForgottenPassword from './pages/ForgottenPassword';
 import Login from './pages/Login';
 import NavBar from './components/navigation/NavBar';
 import Registration from './pages/Registration';
@@ -18,7 +19,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path='register' element={<Registration />} />
       <Route path='verify/account' element={<AccountVerification />} />
-      <Route path='reset-password' element={'reset-password'} />
+      <Route path='reset-password' element={<ForgottenPassword />} />
       {/* Protected Routes */}
       <Route element={<NavBar />}>
         <Route index path='/documents' element={'documents'} />

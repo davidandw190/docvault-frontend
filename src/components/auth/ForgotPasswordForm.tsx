@@ -30,28 +30,34 @@ const ForgotPasswordForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
       noValidate
     >
       <div className="row g-3">
-        <div className="col-12"></div>
-        <label htmlFor="email" className="form-label">
-          Email address
-        </label>
-        <div className="input-group has-validation">
-          <span className="input-group-text">
-            <i className="bi bi-envelope"></i>
-          </span>
-          <input
-            type="text"
-            {...register('email')}
-            name="email"
-            className={`form-control ${
-              formState.errors.email ? 'is-invalid' : ''
-            } ${isFieldValid('email') ? 'is-valid' : ''}`}
-            id="email"
-            placeholder="Email address"
-            disabled={isLoading}
-            required
-          />
-          <div className="invalid-feedback">
-            {formState.errors.email?.message}
+      <small className="form-text text-muted">
+            Please enter the email address associated with your account. We will
+            send you a link to reset your password.
+          </small>
+        <div className="col-12">
+          
+          <label htmlFor="email" className="form-label">
+            Email address
+          </label>
+          <div className="input-group has-validation">
+            <span className="input-group-text">
+              <i className="bi bi-envelope"></i>
+            </span>
+            <input
+              type="text"
+              {...register('email')}
+              name="email"
+              className={`form-control ${
+                formState.errors.email ? 'is-invalid' : ''
+              } ${isFieldValid('email') ? 'is-valid' : ''}`}
+              id="email"
+              placeholder="Enter your registered email address"
+              disabled={isLoading}
+              required
+            />
+            <div className="invalid-feedback">
+              {formState.errors.email?.message}
+            </div>
           </div>
         </div>
       </div>
