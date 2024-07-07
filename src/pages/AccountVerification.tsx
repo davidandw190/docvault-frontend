@@ -1,6 +1,6 @@
+import ActionLinks from '../components/auth/ActionLinks';
 import { IResponse } from '../models/IResponse';
 import { InvalidLinkMessage } from '../components/auth/InvalidLinkMessage';
-import VerificationActionLinks from '../components/auth/VerificationActionLinks';
 import VerificationErrorMessage from '../components/auth/VerificationErrorMessage';
 import VerificationSuccessMessage from '../components/auth/VerificationSuccessMessage';
 import VerifyingAccount from '../components/auth/VerifyingAccount';
@@ -10,9 +10,9 @@ import { userAPI } from '../services/UserService';
 
 /**
  * Verifies a user's account using a key from the URL query parameters.
- * It extracts a verification key from the URL query parameters, triggers an API 
+ * It extracts a verification key from the URL query parameters, triggers an API
  * call to verify the account if the key is present.
- * 
+ *
  * @component
  */
 const AccountVerification: React.FC = () => {
@@ -70,7 +70,12 @@ const AccountVerification: React.FC = () => {
           <div className="card">
             <div className="card-body">
               {renderContent()}
-              <VerificationActionLinks />
+              <ActionLinks
+                firstLinkText={'Go to Login'}
+                firstLinkPath={'/login'}
+                secondLinkText={'Forgot Password?'}
+                secondLinkPath={'/reset-password'}
+              />
             </div>
           </div>
         </div>

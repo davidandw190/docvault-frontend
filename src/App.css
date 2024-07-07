@@ -328,3 +328,41 @@ a {
   pointer-events: none;
   opacity: .6;
 }
+
+/* Link styles */
+.link-container a {
+  color: #02af74; /* Green color */
+  text-decoration: none;
+  transition: color 0.05s ease, transform 0.05s ease;
+}
+
+.link-container a:hover {
+  color: #028a59; /* Darker green color on hover */
+  transform: scale(1.2); /* Slightly increase the size on hover */
+}
+
+
+
+.link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.link-container::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #02af74;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.1s ease-in-out;
+}
+
+.link-container:hover::before,
+.link-container a:focus::before {
+  visibility: visible;
+  transform: scaleX(1);
+}

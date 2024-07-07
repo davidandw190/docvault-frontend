@@ -1,6 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
-import CacheKey  from '../enums/cache.key';
+import ActionLinks from '../components/auth/ActionLinks';
+import CacheKey from '../enums/cache.key';
+import { IResponse } from '../models/IResponse';
 import LoginForm from '../components/auth/LoginForm';
 import QrCodeForm from '../components/auth/QrCodeForm';
 import { userAPI } from '../services/UserService';
@@ -9,7 +11,7 @@ import { userAPI } from '../services/UserService';
  * Login component handles user login and multi-factor authentication (MFA).
  * It uses `useLocation` to redirect users after a successful login and manages
  * the login state using local storage cookies and Redux Toolkit Query.
- * 
+ *
  * @component
  */
 const Login: React.FC = () => {
@@ -41,7 +43,38 @@ const Login: React.FC = () => {
   }
 
   return (
-    <LoginForm loginUser={loginUser} error={error} isLoading={isLoading} />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div
+          className="col-lg-6 col-md-6 col-sm-12"
+          style={{ marginTop: '150px' }}
+        >
+          <div className="card">
+            <div className="card-body">
+              <h4 className="mb-3">Login</h4>
+              {error && (
+                <div className="alert alert-dismissible alert-danger">
+                  {'data' in error
+                    ? (error.data as IResponse<void>).message
+                    : 'An error occurred'}
+                </div>
+              )}
+              <hr />
+              <LoginForm
+                loginUser={loginUser}
+                isLoading={isLoading}
+              />
+              <ActionLinks
+                firstLinkText={'Create an account'}
+                firstLinkPath={'/register'}
+                secondLinkText={'Forgot your password?'}
+                secondLinkPath={'/reset-password'}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

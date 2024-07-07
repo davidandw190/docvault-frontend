@@ -1,5 +1,6 @@
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
 
+import ActionLinks from './ActionLinks';
 import CacheKey from '../../enums/cache.key';
 import { IResponse } from '../../models/IResponse';
 import { QrCodeRequest } from '../../models/ICredentails';
@@ -229,23 +230,13 @@ const QrCodeForm = ({ userId }: Props) => {
                   </button>
                 </div>
               </form>
-              <hr className="my-3" />
 
-              <div className="row mb-3">
-                <div className="col d-flex justify-content-start">
-                  <div className="btn btn-outline-light">
-                    <Link to="/register" style={{ textDecoration: 'none' }}>
-                      Create an Account
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="col d-flex justify-content-end">
-                  <div className="link-dark">
-                    <Link to="/resetpassword">Forgot password?</Link>
-                  </div>
-                </div>
-              </div>
+              <ActionLinks
+                firstLinkText={'Create an account'}
+                firstLinkPath={'/register'}
+                secondLinkText={'Forgot your password?'}
+                secondLinkPath={'/reset-password'}
+              />
             </div>
           </div>
         </div>

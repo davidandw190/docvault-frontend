@@ -1,6 +1,6 @@
+import ActionLinks from '../components/auth/ActionLinks';
 import { IRegistrationRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
-import { Link } from 'react-router-dom';
 import RegistrationForm from '../components/auth/RegistrationForm';
 import { userAPI } from '../services/UserService';
 
@@ -39,21 +39,12 @@ const Registration: React.FC = () => {
                 isSuccess={isSuccess}
                 isLoading={isLoading}
               />
-              <hr className="my-3" />
-              <div className="row mb-3">
-                <div className="col d-flex justify-content-start">
-                  <div className="btn btn-outline-light">
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                      Go to login
-                    </Link>
-                  </div>
-                </div>
-                <div className="col d-flex justify-content-end">
-                  <div className="link-dark">
-                    <Link to="/resetpassword">Forgot password?</Link>
-                  </div>
-                </div>
-              </div>
+              <ActionLinks
+                firstLinkText={'Already have an account?'}
+                firstLinkPath={'/login'}
+                secondLinkText={'Forgot your password?'}
+                secondLinkPath={'/reset-password'}
+              />
             </div>
           </div>
         </div>

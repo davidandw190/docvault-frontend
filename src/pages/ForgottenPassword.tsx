@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
+import ActionLinks from '../components/auth/ActionLinks';
 import CacheKey from '../enums/cache.key';
 import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
 import { ForgotPasswordRequest } from '../models/ICredentails';
@@ -62,7 +63,7 @@ const FogottenPassword: React.FC = () => {
                   isLoading={isLoading}
                 />
               )}
-              {/* TODO #2: Make the action links configurable and add them here */}
+              <ActionLinks firstLinkText={'Go back to Login'} firstLinkPath={'/login'} secondLinkText={'Resend the code'} secondLinkPath={''} />
             </div>
           </div>
         </div>
