@@ -2,7 +2,7 @@ import { IUser } from './IUser';
 
 /**
  * Interface representing a login request payload.
- * 
+ *
  * @interface
  */
 export interface ILoginRequest {
@@ -13,9 +13,9 @@ export interface ILoginRequest {
 
 /**
  * Interface representing a registration request payload.
- * 
+ *
  * @extends {ILoginRequest}
- * 
+ *
  * @interface
  */
 export interface IRegistrationRequest extends ILoginRequest {
@@ -23,12 +23,13 @@ export interface IRegistrationRequest extends ILoginRequest {
   lastName: string;
   phone?: string;
   bio?: string;
-  confirmPassword?: string;
+  password: string;
+  confirmPassword: string;
 }
 
 /**
  * Type representing the QR code request for MFA.
- * 
+ *
  * @type
  */
 export type QrCodeRequest = Pick<IUser, 'userId'> & {
@@ -42,3 +43,17 @@ export type QrCodeRequest = Pick<IUser, 'userId'> & {
 };
 
 export type ForgotPasswordRequest = Pick<IUser, 'email'>;
+
+
+export interface IResetPasswordExternallyRequest {
+  userId: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface IUpdatePasswordRequest {
+  userId: string;
+  password: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
