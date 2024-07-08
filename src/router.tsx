@@ -10,6 +10,7 @@ import App from './App';
 import ForgottenPassword from './pages/ForgottenPassword';
 import Login from './pages/Login';
 import NavBar from './components/navigation/NavBar';
+import Profile from './pages/Profile';
 import ProtectedRoute from './components/ProtectedRoute';
 import Registration from './pages/Registration';
 import ResetPassword from './pages/ResetPassword';
@@ -29,9 +30,11 @@ const router = createBrowserRouter(
         <Route element={<NavBar />}>
           <Route index path="documents" element={'documents'} />
           <Route path="/" element={<Navigate to={'/documents'} />} />
+          <Route path="profile" element={<Profile />}>
+          </Route>
           <Route element={<RestrictedRoute />}>
             <Route path="members" element={'members'} />
-          </Route>  
+          </Route>
         </Route>
       </Route>
     </Route>
