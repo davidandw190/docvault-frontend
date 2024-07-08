@@ -57,11 +57,29 @@ const ResetPassword: React.FC = () => {
     }
 
     if (isVerifySuccess) {
-      <ResetPasswordForm
-        onSubmit={onResetPassword}
-        isLoading={isVerifyLoading || isResetLoading}
-        userId={response.data.user.userId!}
-      />;
+      return (
+        <>
+          {resetError && (
+            <div className="alert alert-dismissible alert-danger">
+              {'data' in resetError
+                ? (resetError.data as IResponse<void>).message!
+                : 'An error occurred'}
+            </div>
+          )}
+          {isResetSuccess && (
+            <div className="alert alert-dismissible alert-success">
+              You password was reset successfully. You can now go back to Login
+            </div>
+          )}
+          <hr />
+          <ResetPasswordForm
+            onSubmit={onResetPassword}
+            isLoading={isVerifyLoading || isResetLoading}
+            userId={response.data.user.userId!}
+          />
+          ;
+        </>
+      );
     }
   };
 

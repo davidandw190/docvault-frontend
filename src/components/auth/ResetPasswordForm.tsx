@@ -1,5 +1,7 @@
 import { IResetPasswordExternallyRequest } from '../../models/ICredentails';
+import PassStrengthBar from './PassStrengthBar';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -25,8 +27,12 @@ const schema = z
     }
   });
 
-const ResetPasswordForm: React.FC<Props> = ({ onSubmit, isLoading, userId }) => {
-  const { register, handleSubmit, formState, getFieldState, reset } =
+const ResetPasswordForm: React.FC<Props> = ({
+  onSubmit,
+  isLoading,
+  userId,
+}) => {
+  const { register, handleSubmit, formState, getFieldState, reset, watch } =
     useForm<IResetPasswordExternallyRequest>({
       resolver: zodResolver(schema),
       mode: 'onTouched',
@@ -38,14 +44,18 @@ const ResetPasswordForm: React.FC<Props> = ({ onSubmit, isLoading, userId }) => 
     getFieldState(fieldName, formState).isTouched &&
     !getFieldState(fieldName, formState).invalid;
 
-  const handleResetPassword = (payload: IResetPasswordExternallyRequest) => {
+  const onResetPassword = (payload: IResetPasswordExternallyRequest) => {
     onSubmit(payload);
     reset();
   };
 
+  const [newPasswordStrength, setNewPasswordStrength] = useState(0);
+
+  const newPassword = watch('newPassword', '');
+
   return (
     <form
-      onSubmit={handleSubmit(handleResetPassword)}
+      onSubmit={handleSubmit(onResetPassword)}
       className="needs-validation"
       noValidate
     >
@@ -72,7 +82,11 @@ const ResetPasswordForm: React.FC<Props> = ({ onSubmit, isLoading, userId }) => 
               name="newPassword"
               className={`form-control ${
                 formState.errors.newPassword ? 'is-invalid' : ''
-              } ${isFieldValid('newPassword') ? 'is-valid' : ''}`}
+              } ${
+                isFieldValid('newPassword') && newPasswordStrength >= 2
+                  ? 'is-valid'
+                  : ''
+              }`}
               id="newPassword"
               placeholder="New password"
               disabled={isLoading}
@@ -82,6 +96,13 @@ const ResetPasswordForm: React.FC<Props> = ({ onSubmit, isLoading, userId }) => 
               {formState.errors?.newPassword?.message}
             </div>
           </div>
+          {newPassword && (
+            <PassStrengthBar
+              password={newPassword}
+              passwordStrength={newPasswordStrength}
+              setPasswordStrength={setNewPasswordStrength}
+            />
+          )}
         </div>
         <div className="col-12">
           <label htmlFor="confirmNewPassword" className="form-label">
@@ -111,7 +132,12 @@ const ResetPasswordForm: React.FC<Props> = ({ onSubmit, isLoading, userId }) => 
       </div>
       <div className="col mt-3">
         <button
-          disabled={formState.isSubmitting || isLoading || !formState.isValid}
+          disabled={
+            formState.isSubmitting ||
+            isLoading ||
+            !formState.isValid ||
+            newPasswordStrength < 3
+          }
           className="btn btn-primary btn-block"
           type="submit"
         >

@@ -14,7 +14,7 @@ type Props = {
 };
 
 /**
- * LoginForm component handles user login form rendering and validation.
+ * It handles user login form rendering and validation.
  * It uses `react-hook-form` with `zod` for schema validation and displays
  * errors accordingly.
  *
