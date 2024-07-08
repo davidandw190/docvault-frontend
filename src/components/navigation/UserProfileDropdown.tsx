@@ -7,6 +7,16 @@ type Props = {
   isLoading: boolean;
 };
 
+/**
+ * Displays a dropdown menu for the user profile.
+ *
+ * @component
+ * @param {Object} Props - The component props.
+ * @param {IUser | undefined} Props.user - The user object.
+ * @param {() => void} Props.onLogout - The function to handle logout.
+ * @param {boolean} Props.isLoading - Indicates if the user data is loading.
+ * @returns {JSX.Element} The rendered UserProfileDropdown component.
+ */
 const UserProfileDropdown: React.FC<Props> = ({ user, isLoading, onLogout }: Props) => {
   return (
     <div className="flex-shrink-0 dropdown">

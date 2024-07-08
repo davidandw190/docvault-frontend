@@ -28,6 +28,14 @@ const registrationSchema = z
     path: ['confirmPassword'],
   });
 
+/**
+ * RegistrationForm component handles the input and submission of the registration form.
+ * It uses `react-hook-form` with `zod` for schema validation.
+ * It also includes a password strength bar to show the strength of the password.
+ * 
+ * @component
+ * @param {Props} props - Props including the registration function, loading state, and success state.
+ */  
 const RegistrationForm: React.FC<Props> = ({
   onRegistration,
   isLoading,

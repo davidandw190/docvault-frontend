@@ -12,6 +12,14 @@ const schema = z.object({
   email: z.string().min(5, 'Email is required').email('Invalid email address'),
 });
 
+/**
+ * It handles user forgot password form rendering and validation.
+ * It uses `react-hook-form` with `zod` for schema validation and displays
+ * errors accordingly.
+ *
+ * @component
+ * @param {Props} props - Props including onSubmit function and loading state.
+ */
 const ForgotPasswordForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
   const { register, handleSubmit, formState, getFieldState } =
     useForm<ForgotPasswordRequest>({

@@ -9,14 +9,17 @@ type Props = {
 };
 
 /**
- * Displays action links for navigation (e.g., go to login, forgot password).
+ * ActionLinks component displays two action links with provided text and paths.
+ * 
+ * @component
+ * @param {Props} props - Props including the text and path for the 2 nav links.
  */
 const ActionLinks: React.FC<Props> = ({
   firstLinkText,
   firstLinkPath,
   secondLinkText,
   secondLinkPath,
-}) => (
+}: Props) => (
   <>
     <hr className="my-3" />
     <div className="row mb-3">

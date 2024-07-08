@@ -9,6 +9,12 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { userAPI } from '../services/UserService';
 
+/**
+ * ResetPassword component renders the reset password form allowing the user
+ * to enter a new password after verifying the reset password link.
+ *
+ * @page
+ */
 const ResetPassword: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

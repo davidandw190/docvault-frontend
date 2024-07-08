@@ -4,6 +4,12 @@ import { IResponse } from '../models/IResponse';
 import RegistrationForm from '../components/auth/RegistrationForm';
 import { userAPI } from '../services/UserService';
 
+/**
+ * Registration component renders the registration form allowing the user
+ * to enter his credentials and register a new account.
+ *
+ * @page
+ */
 const Registration: React.FC = () => {
   const [registerUser, { data: response, isLoading, error, isSuccess }] =
     userAPI.useRegisterUserMutation();

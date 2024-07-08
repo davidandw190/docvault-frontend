@@ -13,7 +13,7 @@ import { userAPI } from '../services/UserService';
  * It extracts a verification key from the URL query parameters, triggers an API
  * call to verify the account if the key is present.
  *
- * @component
+ * @page
  */
 const AccountVerification: React.FC = () => {
   const location = useLocation();

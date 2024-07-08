@@ -12,7 +12,7 @@ import { userAPI } from '../services/UserService';
  * It uses `useLocation` to redirect users after a successful login and manages
  * the login state using local storage cookies and Redux Toolkit Query.
  *
- * @component
+ * @page
  */
 const Login: React.FC = () => {
   const location = useLocation();

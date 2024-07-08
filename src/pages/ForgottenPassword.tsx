@@ -7,6 +7,13 @@ import { ForgotPasswordRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
 import { userAPI } from '../services/UserService';
 
+/**
+ * ForgottenPassword component renders the forgot password form allowing the user
+ * to enter his email on which to recieve a reset password link, and handles the
+ * password reset request.
+ *
+ * @page
+ */
 const FogottenPassword: React.FC = () => {
   const location = useLocation();
   const isLoggedIn: boolean =

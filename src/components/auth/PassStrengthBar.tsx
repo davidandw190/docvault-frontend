@@ -7,6 +7,14 @@ type Props = {
   setPasswordStrength: React.Dispatch<React.SetStateAction<number>>;
 };
 
+/**
+ * PassStrengthBar component displays a password strength bar based on the
+ * password strength score.
+ * 
+ * @component
+ * @param {Props} props - Props including the password, password strength score,
+ * and the setter function for the password strength score.
+ */
 const PassStrengthBar = ({ password, passwordStrength, setPasswordStrength }: Props) => {
   useEffect(() => {
     const strength = zxcvbn(password).score;

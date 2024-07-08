@@ -27,6 +27,14 @@ const schema = z
     }
   });
 
+/**
+ * ResetPasswordForm component handles the input and submission of the reset password form.
+ * It uses `react-hook-form` with `zod` for schema validation.
+ * It also includes a password strength bar to show the strength of the password.
+ **
+ * @component
+ * @param {Props} props - Props including the reset password function, loading state, and userId.
+ */
 const ResetPasswordForm: React.FC<Props> = ({
   onSubmit,
   isLoading,
