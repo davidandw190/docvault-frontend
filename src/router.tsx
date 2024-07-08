@@ -13,6 +13,7 @@ import NavBar from './components/navigation/NavBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Registration from './pages/Registration';
 import ResetPassword from './pages/ResetPassword';
+import RestrictedRoute from './components/RestrictedRoute';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,8 +27,11 @@ const router = createBrowserRouter(
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route element={<NavBar />}>
-          <Route index path="/documents" element={'documents'} />
+          <Route index path="documents" element={'documents'} />
           <Route path="/" element={<Navigate to={'/documents'} />} />
+          <Route element={<RestrictedRoute />}>
+            <Route path="members" element={'members'} />
+          </Route>  
         </Route>
       </Route>
     </Route>
