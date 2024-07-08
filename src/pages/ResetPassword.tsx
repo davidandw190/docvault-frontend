@@ -1,6 +1,8 @@
 import ActionLinks from '../components/auth/ActionLinks';
+import { IResetPasswordExternallyRequest } from '../models/ICredentails';
 import { IResponse } from '../models/IResponse';
 import { InvalidLinkMessage } from '../components/auth/InvalidLinkMessage';
+import ResetPasswordForm from '../components/auth/ResetPasswordForm';
 import VerificationErrorMessage from '../components/auth/VerificationErrorMessage';
 import VerifyingAccount from '../components/auth/VerifyingAccount';
 import { useEffect } from 'react';
@@ -12,8 +14,24 @@ const ResetPassword: React.FC = () => {
   const searchParams = new URLSearchParams(location.search);
   const key = searchParams.get('key');
 
-  const [verifyResetPassword, { error, isLoading, isSuccess }] =
-    userAPI.useVerifyResetPasswordMutation();
+  const [
+    verifyResetPassword,
+    {
+      data: response,
+      error: verifyError,
+      isLoading: isVerifyLoading,
+      isSuccess: isVerifySuccess,
+    },
+  ] = userAPI.useVerifyResetPasswordMutation();
+
+  const [
+    resetPasswordExternally,
+    { error: resetError, isLoading: isResetLoading, isSuccess: isResetSuccess },
+  ] = userAPI.useResetPasswordExternallyMutation();
+
+  const onResetPassword = async (payload: IResetPasswordExternallyRequest) => {
+    await resetPasswordExternally(payload);
+  };
 
   useEffect(() => {
     if (key) {
@@ -26,20 +44,24 @@ const ResetPassword: React.FC = () => {
       return <InvalidLinkMessage />;
     }
 
-    if (isLoading) {
+    if (isVerifyLoading) {
       return <VerifyingAccount />;
     }
 
-    if (error) {
+    if (verifyError) {
       const message =
-        'data' in error
-          ? (error.data as IResponse<void>).message!
+        'data' in verifyError
+          ? (verifyError.data as IResponse<void>).message!
           : 'An error occurred. Please try again later.';
       return <VerificationErrorMessage message={message} />;
     }
 
-    if (isSuccess) {
-      // TODO: Set up the reset password form
+    if (isVerifySuccess) {
+      <ResetPasswordForm
+        onSubmit={onResetPassword}
+        isLoading={isVerifyLoading || isResetLoading}
+        userId={response.data.user.userId!}
+      />;
     }
   };
 

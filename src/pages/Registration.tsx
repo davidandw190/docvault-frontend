@@ -43,7 +43,7 @@ const Registration: React.FC = () => {
                 firstLinkText={'Already have an account?'}
                 firstLinkPath={'/login'}
                 secondLinkText={'Forgot your password?'}
-                secondLinkPath={'/reset-password'}
+                secondLinkPath={'/forgot-password'}
               />
             </div>
           </div>

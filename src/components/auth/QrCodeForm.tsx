@@ -235,7 +235,7 @@ const QrCodeForm = ({ userId }: Props) => {
                 firstLinkText={'Create an account'}
                 firstLinkPath={'/register'}
                 secondLinkText={'Forgot your password?'}
-                secondLinkPath={'/reset-password'}
+                secondLinkPath={'/forgot-password'}
               />
             </div>
           </div>

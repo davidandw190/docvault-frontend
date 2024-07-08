@@ -12,6 +12,7 @@ import {
   ForgotPasswordRequest,
   ILoginRequest,
   IRegistrationRequest,
+  IResetPasswordExternallyRequest,
   QrCodeRequest,
 } from '../models/ICredentails';
 import Http from '../enums/http.method';
@@ -99,6 +100,18 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
-    
+    resetPasswordExternally: builder.mutation<
+      IResponse<void>,
+      IResetPasswordExternallyRequest
+    >({
+      query: (resetPasswordRequest) => ({
+        url: '/reset-password',
+        method: Http.PATCH,
+        body: resetPasswordRequest,
+      }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
   }),
 });
