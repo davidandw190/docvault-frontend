@@ -1,33 +1,48 @@
 import { Outlet } from 'react-router-dom';
 import React from 'react';
+import UserProfileCard from '../components/profile/UserProfileCard';
 import { userAPI } from '../services/UserService';
 
 const Profile: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const {
     data: userDetails,
-    isLoading,
-    error,
-    isSuccess,
+    isLoading: isUserLoading,
+    // error: isUserError,
+    isSuccess: isUserSuccess,
   } = userAPI.useFetchUserQuery();
 
-  const selectImage = () => {
+  const [updateProfilePicture, { isLoading: isPictureLoading }] =
+    userAPI.useUpdateProfilePictureMutation();
+
+  const onSelectPicture = () => {
     if (inputRef.current) {
       inputRef.current.click();
     }
   };
 
+  const onUploadPicture = async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('userId', userDetails?.data.user.userId ?? '');
+    await updateProfilePicture(formData);
+  };
+
   return (
     <div className="container main">
       <div className="row">
-        {isLoading ? (
+        {isUserLoading ? (
           // TODO: Add Loading skeleton component
           <span>Loading...</span>
         ) : (
-          isSuccess &&
+          isUserSuccess &&
           userDetails && (
             <div className="col-lg-3 col-md-5 col-sm-12">
-              {/* TODO: Add User Profile Card component */}
+              <UserProfileCard
+                user={userDetails.data.user}
+                onSelectPicture={onSelectPicture}
+                isPictureLoading={isPictureLoading}
+              />
               {/* TODO: Add User Navigation component */}
             </div>
           )
@@ -44,7 +59,12 @@ const Profile: React.FC = () => {
         <input
           type="file"
           ref={inputRef}
-          onChange={(event) => console.log(event.target.files)}
+          onChange={(event) => {
+            const file = event.target.files?.[0];
+            if (file) {
+              onUploadPicture(file);
+            }
+          }}
           name="file"
           accept="image/*"
         />

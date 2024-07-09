@@ -2,14 +2,14 @@ import { IUser } from '../../models/IUser';
 
 type Props = {
   user: IUser | undefined;
-  onSelectImage: () => void;
-  isLoading: boolean;
+  onSelectPicture: () => void;
+  isPictureLoading: boolean;
 };
 
 const UserProfileCard: React.FC<Props> = ({
   user,
-  onSelectImage,
-  isLoading,
+  onSelectPicture,
+  isPictureLoading,
 }) => {
   return (
     <div className="card text-center mb-3">
@@ -20,21 +20,21 @@ const UserProfileCard: React.FC<Props> = ({
           alt={user?.firstName}
         />
         <a
-          onClick={onSelectImage}
+          onClick={onSelectPicture}
           className="btn btn-light border btn-sm card-text mb-2 opacity-80"
           style={{ fontSize: '12px' }}
         >
-          {!isLoading && (
+          {!isPictureLoading && (
             <i className="bi bi-camera-fill" style={{ marginRight: '5px' }}></i>
           )}
-          {isLoading && (
+          {isPictureLoading && (
             <span
               className="spinner-border spinner-border-sm"
               aria-hidden="true"
             ></span>
           )}
           <span role="status">
-            {isLoading ? 'Changing...' : 'Change Photo'}
+            {isPictureLoading ? 'Changing...' : 'Change Photo'}
           </span>
         </a>
         <p className="h6">

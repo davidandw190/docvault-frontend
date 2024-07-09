@@ -113,5 +113,16 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
+    updateProfilePicture: builder.mutation<IResponse<string>, FormData>({
+      query: (formData) => ({
+        url: '/profile/picture',
+        method: Http.PATCH,
+        body: formData,
+      }),
+      transformResponse: processResponse<string>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    })
   }),
 });
