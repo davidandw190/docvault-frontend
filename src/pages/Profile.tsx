@@ -1,3 +1,4 @@
+import LoadingSkeleton from '../components/profile/LoadingSkeleton';
 import { Outlet } from 'react-router-dom';
 import ProfileNavigation from '../components/profile/ProfileNavigation';
 import React from 'react';
@@ -33,14 +34,12 @@ const Profile: React.FC = () => {
     <div className="container main">
       <div className="row">
         {isUserLoading ? (
-          // TODO: Add Loading skeleton component
-          <span>Loading...</span>
+          <LoadingSkeleton />
         ) : (
-          isUserSuccess &&
-          userDetails && (
+          (
             <div className="col-lg-3 col-md-5 col-sm-12">
               <UserProfileCard
-                user={userDetails.data.user}
+                user={userDetails?.data.user}
                 onSelectPicture={onSelectPicture}
                 isPictureLoading={isPictureLoading}
               />
