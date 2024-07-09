@@ -47,3 +47,12 @@ export type User = { user: IUser };
  * @type
  */
 export type Users = { users: IUser[] };
+
+
+export interface IUpdateProfileDetailsRequest {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  bio: string;
+}
