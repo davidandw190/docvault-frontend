@@ -22,18 +22,35 @@ const router = createBrowserRouter(
       {/* Public Routes */}
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Registration />} />
-      <Route path="verify/account" element={<AccountVerification />} />
+      <Route path="verify-account" element={<AccountVerification />} />
       <Route path="forgot-password" element={<ForgottenPassword />} />
       <Route path="reset-password" element={<ResetPassword />} />
+
+      {/* Redirect root to documents */}
+      <Route path="/" element={<Navigate to="/documents" />} />
+
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route element={<NavBar />}>
-          <Route index path="documents" element={'documents'} />
-          <Route path="/" element={<Navigate to={'/documents'} />} />
+          <Route path="documents" element={<div>Documents</div>} />
+
+          {/* Profile Routes */}
           <Route path="profile" element={<Profile />}>
+            <Route
+              path="/profile"
+              element={<Navigate to="/profile/details" />}
+            />
+            <Route path="details" element={<div>Profile Details</div>} />
+            <Route path="password" element={<div>Password</div>} />
+            <Route path="settings" element={<div>Settings</div>} />
+            <Route path="authorization" element={<div>Authorization</div>} />
+            <Route path="authentication" element={<div>Authentication</div>} />
+            <Route path="*" element={<Navigate to="/profile/details" />} />
           </Route>
+
+          {/* Restricted Routes */}
           <Route element={<RestrictedRoute />}>
-            <Route path="members" element={'members'} />
+            <Route path="members" element={<div>Members</div>} />
           </Route>
         </Route>
       </Route>

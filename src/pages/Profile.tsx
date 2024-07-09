@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import ProfileNavigation from '../components/profile/ProfileNavigation';
 import React from 'react';
 import UserProfileCard from '../components/profile/UserProfileCard';
 import { userAPI } from '../services/UserService';
@@ -43,7 +44,7 @@ const Profile: React.FC = () => {
                 onSelectPicture={onSelectPicture}
                 isPictureLoading={isPictureLoading}
               />
-              {/* TODO: Add User Navigation component */}
+              <ProfileNavigation />
             </div>
           )
         )}

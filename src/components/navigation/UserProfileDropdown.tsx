@@ -41,7 +41,7 @@ const UserProfileDropdown: React.FC<Props> = ({ user, isLoading, onLogout }: Pro
       <ul className="dropdown-menu dropdown-menu-end" style={{ paddingInline: '10px' }}>
         <li>
           <NavLink
-            to="/user/profile"
+            to="/profile/details"
             end
             className="rounded-2 dropdown-item d-flex gap-2 align-items-center"
           >

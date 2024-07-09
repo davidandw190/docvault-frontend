@@ -123,6 +123,5 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
-    })
   }),
 });

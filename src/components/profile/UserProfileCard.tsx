@@ -11,6 +11,7 @@ const UserProfileCard: React.FC<Props> = ({
   onSelectPicture,
   isPictureLoading,
 }) => {
+  console.log('user', user);
   return (
     <div className="card text-center mb-3">
       <div className="card-body">
