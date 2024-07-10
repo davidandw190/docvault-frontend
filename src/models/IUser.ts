@@ -57,3 +57,10 @@ export interface IUpdateProfileDetailsRequest {
   phone?: string;
   bio?: string;
 }
+
+export interface IUpdateUserPasswordRequest {
+  userId: string;
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}

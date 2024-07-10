@@ -7,7 +7,11 @@ import {
 
 import { IResponse } from '../models/IResponse';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IUpdateProfileDetailsRequest, User } from '../models/IUser';
+import {
+  IUpdateProfileDetailsRequest,
+  IUpdateUserPasswordRequest,
+  User,
+} from '../models/IUser';
 import {
   ForgotPasswordRequest,
   ILoginRequest,
@@ -133,6 +137,19 @@ export const userAPI = createApi({
         body: details,
       }),
       transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    updateUserPassword: builder.mutation<
+      IResponse<void>,
+      IUpdateUserPasswordRequest
+    >({
+      query: (password) => ({
+        url: '/profile/update/password',
+        method: Http.PATCH,
+        body: password,
+      }),
+      transformResponse: processResponse<void>,
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
