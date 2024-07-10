@@ -1,5 +1,6 @@
 import { IUpdateProfileDetailsRequest, IUser } from '../../models/IUser';
 
+import AccountRoles from '../../enums/account.role';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,7 +17,13 @@ const schema = z.object({
   lastName: z.string().min(1, 'Last name is required'),
   email: z.string().min(3, 'Email is required').email('Invalid email address'),
   bio: z.string().min(5, 'Bio is required'),
-  phone: z.string().min(5, 'Phone is required'),
+  phone: z
+    .string()
+    .regex(
+      /^\+?[1-9]\d{1,14}$/,
+      'Phone number must be a valid international format (e.g., +1234567890)'
+    )
+    .optional(),
 });
 
 const ProfileDetailsForm: React.FC<Props> = ({
@@ -59,7 +66,7 @@ const ProfileDetailsForm: React.FC<Props> = ({
               } ${isFieldValid('firstName') ? 'is-valid' : ''}`}
               placeholder="First name"
               defaultValue={user?.firstName}
-              disabled={user?.role === 'USER'}
+              disabled={user?.role === AccountRoles.USER}
               required
             />
             <div className="invalid-feedback">
@@ -107,7 +114,10 @@ const ProfileDetailsForm: React.FC<Props> = ({
               } ${isFieldValid('email') ? 'is-valid' : ''}`}
               placeholder="Email"
               defaultValue={user?.email}
-              disabled={user?.role === 'USER'}
+              disabled={
+                user?.role === AccountRoles.USER ||
+                user?.role === AccountRoles.ADMIN
+              }
               required
             />
             <div className="invalid-feedback">
@@ -131,8 +141,6 @@ const ProfileDetailsForm: React.FC<Props> = ({
               } ${isFieldValid('phone') ? 'is-valid' : ''}`}
               placeholder="123-456-7890"
               defaultValue={user?.phone}
-              disabled={user?.role === 'USER'}
-              required
             />
             <div className="invalid-feedback">
               {formState.errors.phone?.message}
@@ -150,9 +158,7 @@ const ProfileDetailsForm: React.FC<Props> = ({
             {...register('bio')}
             placeholder="Something about yourself here"
             defaultValue={user?.bio}
-            disabled={user?.role === 'USER'}
             rows={3}
-            required
           ></textarea>
           <div className="invalid-feedback">
             {formState.errors.bio?.message}

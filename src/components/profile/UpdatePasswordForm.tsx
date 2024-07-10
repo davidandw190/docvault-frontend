@@ -64,6 +64,14 @@ const UpdatePasswordForm: React.FC<Props> = ({
       noValidate
     >
       <div className="row g-3">
+        <input
+          type="hidden"
+          {...register('userId')}
+          disabled={true}
+          name="userId"
+          value={userId}
+          required
+        />
         <div className="col-12">
           <label htmlFor="password" className="form-label">
             Current Password
