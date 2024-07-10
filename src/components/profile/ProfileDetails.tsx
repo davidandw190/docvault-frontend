@@ -1,4 +1,6 @@
+import { IResponse } from '../../models/IResponse';
 import { IUpdateProfileDetailsRequest } from '../../models/IUser';
+import ProfileContentLoader from './ProfileContentLoader';
 import ProfileDetailsForm from './ProfileDetailsForm';
 import { userAPI } from '../../services/UserService';
 
@@ -8,7 +10,6 @@ const ProfileDetails: React.FC = () => {
     error,
     isSuccess: isFetchSuccess,
     isLoading: isFetchLoading,
-    refetch,
   } = userAPI.useFetchUserQuery();
 
   const [updateUserDetails, { isLoading: isUpdateLoading }] =
@@ -20,7 +21,7 @@ const ProfileDetails: React.FC = () => {
 
   return (
     <>
-      {isFetchLoading && <span>Loading...</span>}
+      {isFetchLoading && <ProfileContentLoader />}
       {isFetchSuccess && (
         <div>
           <h4 className="mb-3">Profile</h4>
@@ -30,6 +31,13 @@ const ProfileDetails: React.FC = () => {
             onUpdateProfileDetails={onUpdateProfileDetails}
             isUpdateLoading={isUpdateLoading}
           />
+        </div>
+      )}
+      {error && (
+        <div className="alert alert-dismissible alert-danger">
+          {'data' in error
+            ? (error.data as IResponse<void>).message
+            : 'An error occurred while fetching your profile details. Please try again later.'}
         </div>
       )}
     </>
