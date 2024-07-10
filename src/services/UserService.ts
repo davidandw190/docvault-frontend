@@ -153,5 +153,41 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
+    toggleAccountExpired: builder.mutation<IResponse<void>, void>({
+      query: () => ({
+        url: '/profile/account-expired',
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    toggleAccountLocked: builder.mutation<IResponse<void>, void>({
+      query: () => ({
+        url: '/profile/locked',
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    toggleAccountEnabled: builder.mutation<IResponse<void>, void>({
+      query: () => ({
+        url: '/profile/enabled',
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    toggleAccountCredentialsExpired: builder.mutation<IResponse<void>, void>({
+      query: () => ({
+        url: '/profile/credentials-expired',
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<void>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
   }),
 });
