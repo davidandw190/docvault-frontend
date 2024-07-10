@@ -1,4 +1,5 @@
 import { IUpdateProfileDetailsRequest } from '../../models/IUser';
+import ProfileDetailsForm from './ProfileDetailsForm';
 import { userAPI } from '../../services/UserService';
 
 const ProfileDetails: React.FC = () => {
@@ -13,9 +14,9 @@ const ProfileDetails: React.FC = () => {
   const [updateUserDetails, { isLoading: isUpdateLoading }] =
     userAPI.useUpdateUserDetailsMutation();
 
-    const onUpdateProfile = async (data: IUpdateProfileDetailsRequest) => {
-      await updateUserDetails(data);
-    }
+  const onUpdateProfileDetails = async (data: IUpdateProfileDetailsRequest) => {
+    await updateUserDetails(data);
+  };
 
   return (
     <>
@@ -24,7 +25,11 @@ const ProfileDetails: React.FC = () => {
         <div>
           <h4 className="mb-3">Profile</h4>
           <hr />
-          {/* Add Profile Details Form */}
+          <ProfileDetailsForm
+            user={userDetails?.data.user}
+            onUpdateProfileDetails={onUpdateProfileDetails}
+            isUpdateLoading={isUpdateLoading}
+          />
         </div>
       )}
     </>

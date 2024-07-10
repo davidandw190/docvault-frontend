@@ -8,9 +8,8 @@ import QrCodeForm from '../components/auth/QrCodeForm';
 import { userAPI } from '../services/UserService';
 
 /**
- * Login component handles user login and multi-factor authentication (MFA).
- * It uses `useLocation` to redirect users after a successful login and manages
- * the login state using local storage cookies and Redux Toolkit Query.
+ * It handles user login and multi-factor authentication (MFA) and manages the 
+ * login state using local storage cookies and Redux Toolkit Query.
  *
  * @page
  */
