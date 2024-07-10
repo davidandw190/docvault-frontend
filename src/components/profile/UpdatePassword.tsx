@@ -1,5 +1,7 @@
 import { IResponse } from '../../models/IResponse';
+import { IUpdateUserPasswordRequest } from '../../models/IUser';
 import ProfileContentLoader from './ProfileContentLoader';
+import UpdatePasswordForm from './UpdatePasswordForm';
 import { userAPI } from '../../services/UserService';
 
 const UpdatePassword: React.FC = () => {
@@ -13,10 +15,14 @@ const UpdatePassword: React.FC = () => {
     updateUserPassword,
     {
       isLoading: isUpdateLoading,
-      error: isUpdateError,
       isSuccess: isUpdateSuccess,
     },
   ] = userAPI.useUpdateUserPasswordMutation();
+
+  const onUpdatePassword = async (data: IUpdateUserPasswordRequest) => {
+    await updateUserPassword(data);
+  };
+
   return (
     <div>
       {isFetchLoading && <ProfileContentLoader />}
@@ -24,7 +30,12 @@ const UpdatePassword: React.FC = () => {
         <>
           <h4 className="mb-3">Password</h4>
           <hr />
-          {/* TODO: Update password form */}
+          <UpdatePasswordForm
+            userId={userDetails.data.user.userId}
+            isUpdateLoading={isUpdateLoading}
+            isUpdateSuccess={isUpdateSuccess}
+            onUpdatePassword={onUpdatePassword}
+          />
         </>
       )}
       {fetchError && (

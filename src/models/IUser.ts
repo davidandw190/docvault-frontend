@@ -62,5 +62,5 @@ export interface IUpdateUserPasswordRequest {
   userId: string;
   currentPassword: string;
   newPassword: string;
-  confirmPassword: string;
+  confirmNewPassword: string;
 }
