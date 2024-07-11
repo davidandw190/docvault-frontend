@@ -189,5 +189,23 @@ export const userAPI = createApi({
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
+    enableMfa: builder.mutation<IResponse<User>, void>({
+      query: () => ({
+        url: `/mfa/enable`,
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    disableMfa: builder.mutation<IResponse<User>, void>({
+      query: () => ({
+        url: `/mfa/disable`,
+        method: Http.PATCH,
+      }),
+      transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
   }),
 });

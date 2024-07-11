@@ -1,0 +1,85 @@
+import ProfileContentLoader from '../ProfileContentLoader';
+import { userAPI } from '../../../services/UserService';
+
+const AuthenticationSettings: React.FC = () => {
+  const {
+    data: userDetails,
+    isLoading: isFetchLoading,
+    isSuccess: isFetchSuccess,
+    error: fetchError,
+  } = userAPI.useFetchUserQuery();
+
+  const [enableMfa, { data: qrCodeData, isLoading: isEnableMfaLoading }] =
+    userAPI.useEnableMfaMutation();
+  const [disableMfa, { isLoading: isDisableMfaLoading }] =
+    userAPI.useDisableMfaMutation();
+
+  const toggleMfa = async () => {
+    userDetails?.data.user.mfa ? await disableMfa() : await enableMfa();
+  };
+
+  if (isFetchLoading) {
+    return <ProfileContentLoader />;
+  }
+
+  return (
+    <>
+      {isFetchSuccess && (
+        <>
+          <h4 className="mb-3">
+            Authentication(MFA)
+            <span
+              className={`badge pill text-light text-bg-${
+                userDetails?.data.user.mfa ? 'success' : 'warning'
+              } fs-6`}
+            >
+              {userDetails?.data.user.mfa ? 'Enabled' : 'Disabled'}
+            </span>
+          </h4>
+          <div className="row g-3">
+            <div className="col-12 mb-2">
+              <label className="form-label d-block mb-1">
+                Multi Factor Authentication
+              </label>
+              <p className="small text-muted">
+                Two-factor authentication adds an additional layer of security
+                to your account by requiring more than just a password to log
+                in.
+              </p>
+              <button
+                onClick={toggleMfa}
+                disabled={isDisableMfaLoading || isEnableMfaLoading}
+                className={`btn border btn-${
+                  userDetails?.data.user.mfa ? 'light' : 'primary'
+                } mt-2`}
+                type="button"
+              >
+                {userDetails?.data.user.mfa ? 'Disable' : 'Enable'} Two-Factor
+                Authentication
+                {(isDisableMfaLoading || isEnableMfaLoading) && (
+                  <div
+                    className={`spinner-border text-${
+                      userDetails?.data.user.mfa ? 'primary' : 'light'
+                    }`}
+                    role="status"
+                    style={{
+                      height: '20px',
+                      width: '20px',
+                      marginLeft: '10px',
+                    }}
+                  ></div>
+                )}
+              </button>
+
+              {/* Add component with MFA status and qr code */}
+            </div>
+            <hr className="my-2" />
+            {/* Last login component here */}
+          </div>
+        </>
+      )}
+    </>
+  );
+};
+
+export default AuthenticationSettings;
