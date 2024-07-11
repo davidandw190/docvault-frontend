@@ -1,4 +1,5 @@
 import AccountSettings from '../../enums/account.settings';
+import AccountSettingsList from './AccountSettingsList';
 import { IResponse } from '../../models/IResponse';
 import ProfileContentLoader from './ProfileContentLoader';
 import { userAPI } from '../../services/UserService';
@@ -23,7 +24,7 @@ const ProfileSettings: React.FC = () => {
   const [toggleCredentialsExpired] =
     userAPI.useToggleAccountCredentialsExpiredMutation();
 
-  const handleToggleAccountSettings = async (option: AccountSettings) => {
+  const onToggleAccountSettings = async (option: AccountSettings) => {
     switch (option) {
       case AccountSettings.EXPIRED:
         await toggleAccountExpired();
@@ -50,7 +51,10 @@ const ProfileSettings: React.FC = () => {
       <hr />
       {isFetchSuccess && (
         <>
-          {/* TODO: Add Account Setting component */}
+          <AccountSettingsList
+            user={userDetails?.data.user}
+            onToggleAccountSettings={onToggleAccountSettings}
+          />
           {/* TODO: Add Credentails Settings componet */}
         </>
       )}
