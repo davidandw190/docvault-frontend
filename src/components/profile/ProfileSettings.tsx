@@ -1,7 +1,14 @@
+import AccountSettings from '../../enums/account.settings';
 import { IResponse } from '../../models/IResponse';
 import ProfileContentLoader from './ProfileContentLoader';
 import { userAPI } from '../../services/UserService';
 
+/**
+ * Settings component handles the display and toggling of user account settings.
+ *
+ * @component
+ * @returns {JSX.Element} A JSX element representing the Settings component.
+ */
 const ProfileSettings: React.FC = () => {
   const {
     data: userDetails,
@@ -13,8 +20,25 @@ const ProfileSettings: React.FC = () => {
   const [toggleAccountExpired] = userAPI.useToggleAccountExpiredMutation();
   const [toggleAccountLocked] = userAPI.useToggleAccountLockedMutation();
   const [toggleAccountEnabled] = userAPI.useToggleAccountEnabledMutation();
-  const [toggleCredentialsExpired] = userAPI.useToggleAccountCredentialsExpiredMutation();
+  const [toggleCredentialsExpired] =
+    userAPI.useToggleAccountCredentialsExpiredMutation();
 
+  const handleToggleAccountSettings = async (option: AccountSettings) => {
+    switch (option) {
+      case AccountSettings.EXPIRED:
+        await toggleAccountExpired();
+        break;
+      case AccountSettings.LOCKED:
+        await toggleAccountLocked();
+        break;
+      case AccountSettings.ENABLED:
+        await toggleAccountEnabled();
+        break;
+      case AccountSettings.CREDENTIALS_EXPIRED:
+        await toggleCredentialsExpired();
+        break;
+    }
+  };
 
   if (isFetchLoading) {
     return <ProfileContentLoader />;
