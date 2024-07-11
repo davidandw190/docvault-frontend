@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { IUpdateUserPasswordRequest } from '../../models/IUser';
-import PassStrengthBar from '../auth/PassStrengthBar';
+import { IUpdateUserPasswordRequest } from '../../../models/IUser';
+import PassStrengthBar from '../../auth/PassStrengthBar';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';

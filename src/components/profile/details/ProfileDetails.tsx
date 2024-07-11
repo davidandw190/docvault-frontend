@@ -1,8 +1,8 @@
-import { IResponse } from '../../models/IResponse';
-import { IUpdateProfileDetailsRequest } from '../../models/IUser';
-import ProfileContentLoader from './ProfileContentLoader';
+import { IResponse } from '../../../models/IResponse';
+import { IUpdateProfileDetailsRequest } from '../../../models/IUser';
+import ProfileContentLoader from '../ProfileContentLoader';
 import ProfileDetailsForm from './ProfileDetailsForm';
-import { userAPI } from '../../services/UserService';
+import { userAPI } from '../../../services/UserService';
 
 const ProfileDetails: React.FC = () => {
   const {

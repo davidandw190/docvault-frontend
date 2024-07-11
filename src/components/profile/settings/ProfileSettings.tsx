@@ -1,9 +1,9 @@
-import AccountSettings from '../../enums/account.settings';
+import AccountSettings from '../../../enums/account.settings';
 import AccountSettingsList from './AccountSettingsList';
 import CredentialsSettingsList from './CredentialsSettingsList';
-import { IResponse } from '../../models/IResponse';
-import ProfileContentLoader from './ProfileContentLoader';
-import { userAPI } from '../../services/UserService';
+import { IResponse } from '../../../models/IResponse';
+import ProfileContentLoader from '../ProfileContentLoader';
+import { userAPI } from '../../../services/UserService';
 
 /**
  * It handles the display and toggling of user account settings.

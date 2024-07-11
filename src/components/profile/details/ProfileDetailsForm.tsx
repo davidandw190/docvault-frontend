@@ -1,6 +1,6 @@
-import { IUpdateProfileDetailsRequest, IUser } from '../../models/IUser';
+import { IUpdateProfileDetailsRequest, IUser } from '../../../models/IUser';
 
-import AccountRoles from '../../enums/account.role';
+import AccountRoles from '../../../enums/account.role';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';

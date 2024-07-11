@@ -1,8 +1,8 @@
-import { IResponse } from '../../models/IResponse';
-import { IUpdateUserPasswordRequest } from '../../models/IUser';
-import ProfileContentLoader from './ProfileContentLoader';
+import { IResponse } from '../../../models/IResponse';
+import { IUpdateUserPasswordRequest } from '../../../models/IUser';
+import ProfileContentLoader from '../ProfileContentLoader';
 import UpdatePasswordForm from './UpdatePasswordForm';
-import { userAPI } from '../../services/UserService';
+import { userAPI } from '../../../services/UserService';
 
 const UpdatePassword: React.FC = () => {
   const {
