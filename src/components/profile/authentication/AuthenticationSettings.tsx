@@ -1,3 +1,4 @@
+import { IResponse } from '../../../models/IResponse';
 import LastLoginStatus from './LastLoginStatus';
 import MfaStatus from './MfaStatus';
 import ProfileContentLoader from '../ProfileContentLoader';
@@ -8,7 +9,7 @@ const AuthenticationSettings: React.FC = () => {
     data: userDetails,
     isLoading: isFetchLoading,
     isSuccess: isFetchSuccess,
-    // error: fetchError,
+    error: fetchError,
   } = userAPI.useFetchUserQuery();
 
   const [
@@ -85,6 +86,13 @@ const AuthenticationSettings: React.FC = () => {
             <LastLoginStatus lastLogin={userDetails?.data.user.lastLogin} />
           </div>
         </>
+      )}
+      {fetchError && (
+        <div className="alert alert-dismissible alert-danger">
+          {'data' in fetchError
+            ? (fetchError.data as IResponse<void>).message
+            : 'An error occurred while fetching your profile details. Please try again later.'}
+        </div>
       )}
     </>
   );

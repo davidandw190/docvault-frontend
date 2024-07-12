@@ -10,6 +10,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   IUpdateProfileDetailsRequest,
   IUpdateUserPasswordRequest,
+  Role,
   User,
 } from '../models/IUser';
 import {
@@ -204,6 +205,16 @@ export const userAPI = createApi({
         method: Http.PATCH,
       }),
       transformResponse: processResponse<User>,
+      transformErrorResponse: processError,
+      invalidatesTags: (_, error) => (error ? [] : ['User']),
+    }),
+    updateAccountRole: builder.mutation<IResponse<void>, Role>({
+      query: (role) => ({
+        url: `/profile/role`,
+        method: Http.PATCH,
+        body: role,
+      }),
+      transformResponse: processResponse<void>,
       transformErrorResponse: processError,
       invalidatesTags: (_, error) => (error ? [] : ['User']),
     }),
