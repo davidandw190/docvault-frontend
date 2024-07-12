@@ -1,3 +1,4 @@
+import LastLoginStatus from './LastLoginStatus';
 import MfaStatus from './MfaStatus';
 import ProfileContentLoader from '../ProfileContentLoader';
 import { userAPI } from '../../../services/UserService';
@@ -7,16 +8,12 @@ const AuthenticationSettings: React.FC = () => {
     data: userDetails,
     isLoading: isFetchLoading,
     isSuccess: isFetchSuccess,
-    error: fetchError,
+    // error: fetchError,
   } = userAPI.useFetchUserQuery();
 
   const [
     enableMfa,
-    {
-      data: qrCodeData,
-      isLoading: isEnableMfaLoading,
-      isSuccess: isEnableMfaSuccess,
-    },
+    { isLoading: isEnableMfaLoading, isSuccess: isEnableMfaSuccess },
   ] = userAPI.useEnableMfaMutation();
   const [disableMfa, { isLoading: isDisableMfaLoading }] =
     userAPI.useDisableMfaMutation();
@@ -85,7 +82,7 @@ const AuthenticationSettings: React.FC = () => {
               />
             </div>
             <hr className="my-2" />
-            {/* Last login component here */}
+            <LastLoginStatus lastLogin={userDetails?.data.user.lastLogin} />
           </div>
         </>
       )}

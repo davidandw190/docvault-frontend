@@ -9,7 +9,7 @@ const MfaStatus: React.FC<Props> = ({
   isMfaEnabled,
   qrCodeImageUri,
   isQrCodeSuccess,
-  isQrCodeLoading,
+  // isQrCodeLoading,
 }: Props) => {
   return (
     <>
