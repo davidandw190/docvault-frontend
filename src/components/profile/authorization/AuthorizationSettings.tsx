@@ -1,6 +1,7 @@
 import { IResponse } from '../../../models/IResponse';
 import ProfileContentLoader from '../ProfileContentLoader';
 import { Role } from '../../../models/IUser';
+import RoleSelection from './RoleSelection';
 import { userAPI } from '../../../services/UserService';
 
 const AuthorizationSettings: React.FC = () => {
@@ -11,11 +12,12 @@ const AuthorizationSettings: React.FC = () => {
     error: fetchError,
   } = userAPI.useFetchUserQuery();
 
-  const [updateAccountRole, { isLoading: isUpdateRoleLoading }] = userAPI.useUpdateAccountRoleMutation();
+  const [updateAccountRole, { isLoading: isUpdateRoleLoading }] =
+    userAPI.useUpdateAccountRoleMutation();
 
   const onUpdateRole = async (option: Role) => {
     await updateAccountRole(option);
-  }
+  };
 
   if (isFetchLoading) {
     return <ProfileContentLoader />;
@@ -29,7 +31,11 @@ const AuthorizationSettings: React.FC = () => {
       {isFetchSuccess && (
         <form className="needs-validation">
           <div className="row g-3">
-            {/* TODO: add Role Selection Component */}
+            <RoleSelection
+              userRole={userDetails.data.user.role}
+              onUpdateAccountRole={onUpdateRole}
+              isUpdateRoleLoading={isUpdateRoleLoading}
+            />
             {/* TODO: add Permission Section Componetnt */}
           </div>
           <hr className="my-4" />
