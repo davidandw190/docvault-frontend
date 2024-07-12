@@ -1,3 +1,4 @@
+import MfaStatus from './MfaStatus';
 import ProfileContentLoader from '../ProfileContentLoader';
 import { userAPI } from '../../../services/UserService';
 
@@ -9,8 +10,14 @@ const AuthenticationSettings: React.FC = () => {
     error: fetchError,
   } = userAPI.useFetchUserQuery();
 
-  const [enableMfa, { data: qrCodeData, isLoading: isEnableMfaLoading }] =
-    userAPI.useEnableMfaMutation();
+  const [
+    enableMfa,
+    {
+      data: qrCodeData,
+      isLoading: isEnableMfaLoading,
+      isSuccess: isEnableMfaSuccess,
+    },
+  ] = userAPI.useEnableMfaMutation();
   const [disableMfa, { isLoading: isDisableMfaLoading }] =
     userAPI.useDisableMfaMutation();
 
@@ -70,8 +77,12 @@ const AuthenticationSettings: React.FC = () => {
                   ></div>
                 )}
               </button>
-
-              {/* Add component with MFA status and qr code */}
+              <MfaStatus
+                isMfaEnabled={userDetails?.data.user.mfa}
+                qrCodeImageUri={userDetails?.data.user.qrCodeImageUri}
+                isQrCodeLoading={isEnableMfaLoading}
+                isQrCodeSuccess={isEnableMfaSuccess}
+              />
             </div>
             <hr className="my-2" />
             {/* Last login component here */}
