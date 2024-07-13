@@ -5,6 +5,12 @@ import { Role } from '../../../models/IUser';
 import RoleSelection from './RoleSelection';
 import { userAPI } from '../../../services/UserService';
 
+/**
+ * It handles user authorization settings rendering and updating.
+ * It fetches user details and displays the user role and permissions.
+ *
+ * @component
+ */
 const AuthorizationSettings: React.FC = () => {
   const {
     data: userDetails,

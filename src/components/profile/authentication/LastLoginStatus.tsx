@@ -2,6 +2,13 @@ type Props = {
   lastLogin: string | number | Date;
 };
 
+/**
+ * It displays the last login session of the user.
+ * It shows the last login date and time.
+ *
+ * @component
+ * @param {Props} props - Props including last login session.
+ */
 const LastLoginStatus: React.FC<Props> = ({ lastLogin }: Props) => {
   return (
     <div className="col-12">

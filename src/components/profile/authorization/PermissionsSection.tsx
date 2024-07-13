@@ -2,6 +2,13 @@ type Props = {
   userAuhorities: string;
 };
 
+/**
+ * It displays the user permissions based on the authorities assigned to the user.
+ * It displays the permissions in a list with a badge indicating the type of action.
+ *
+ * @component
+ * @param {Props} props - Props including user authorities.
+ */
 const PermissionsSection: React.FC<Props> = ({ userAuhorities }: Props) => {
   const permissions = userAuhorities.split(',');
 

@@ -1,5 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
+/**
+ * It displays navigation links for profile pages.
+ *
+ * @component
+ */
 const ProfileNavigation: React.FC = () => {
   return (
     <div className="card mb-3">

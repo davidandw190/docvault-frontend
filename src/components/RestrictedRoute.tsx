@@ -3,6 +3,12 @@ import { Link, Outlet } from 'react-router-dom';
 import AccountRoles from '../enums/account.role';
 import { userAPI } from '../services/UserService';
 
+/**
+ * It handles restricted route rendering and permissions.
+ * It fetches user details and displays the restricted route content.
+ *
+ * @component
+ */
 const RestrictedRoute = () => {
   const {
     data: userData,

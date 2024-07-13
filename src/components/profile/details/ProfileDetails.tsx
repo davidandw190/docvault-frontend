@@ -4,6 +4,12 @@ import ProfileContentLoader from '../ProfileContentLoader';
 import ProfileDetailsForm from './ProfileDetailsForm';
 import { userAPI } from '../../../services/UserService';
 
+/**
+ * It handles user profile details rendering and updating.
+ * It fetches user details and displays the user profile details.
+ *
+ * @component
+ */
 const ProfileDetails: React.FC = () => {
   const {
     data: userDetails,

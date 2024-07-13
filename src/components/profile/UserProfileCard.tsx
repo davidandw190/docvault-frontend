@@ -6,6 +6,12 @@ type Props = {
   isPictureLoading: boolean;
 };
 
+/**
+ * It displays the user profile card with user details and photo.
+ *
+ * @component
+ * @param {Props} props - Props including user, onSelectPicture function, and loading state.
+ */
 const UserProfileCard: React.FC<Props> = ({
   user,
   onSelectPicture,

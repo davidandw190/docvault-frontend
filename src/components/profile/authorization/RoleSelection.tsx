@@ -7,6 +7,13 @@ type Props = {
   isUpdateRoleLoading: boolean;
 };
 
+/**
+ * It handles user role selection rendering and updating.
+ * It displays the user role and allows the user to update the role.
+ *
+ * @component
+ * @param {Props} props - Props including user role, onUpdateAccountRole function, and loading state.
+ */
 const RoleSelection: React.FC<Props> = ({
   userRole,
   onUpdateAccountRole,

@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * It displays loading skeleton for profile details.
+ *
+ * @component
+ */
 const LoadingSkeleton: React.FC = () => (
   <div className="col-lg-3 col-md-5 col-sm-12">
     <div className="card text-center mb-3 loading-skeleton-card">

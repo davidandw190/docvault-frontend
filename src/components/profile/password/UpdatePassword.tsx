@@ -4,6 +4,12 @@ import ProfileContentLoader from '../ProfileContentLoader';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import { userAPI } from '../../../services/UserService';
 
+/**
+ * It handles user password updating.
+ * It fetches user details and displays the password update form.
+ *
+ * @component
+ */
 const UpdatePassword: React.FC = () => {
   const {
     data: userDetails,

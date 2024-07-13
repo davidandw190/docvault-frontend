@@ -11,8 +11,7 @@ type Props = {
  * Renders the navigation links for the navbar.
  *
  * @component
- * @param {Props} props - The component props.
- * @param {IUser | undefined} props.user - The user object.
+ * @param {Props} props - Props including the user object.
  */
 const NavBarLinks: React.FC<Props> = ({ user }: Props) => {
   return (

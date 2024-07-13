@@ -26,6 +26,14 @@ const schema = z.object({
     .optional(),
 });
 
+/**
+ * It handles user profile details form rendering and validation.
+ * It uses `react-hook-form` with `zod` for schema validation and displays
+ * errors accordingly.
+ *
+ * @component
+ * @param {Props} props - Props including user, onUpdateProfileDetails function, and loading state.
+ */
 const ProfileDetailsForm: React.FC<Props> = ({
   user,
   onUpdateProfileDetails,

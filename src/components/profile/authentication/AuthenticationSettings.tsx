@@ -4,6 +4,12 @@ import MfaStatus from './MfaStatus';
 import ProfileContentLoader from '../ProfileContentLoader';
 import { userAPI } from '../../../services/UserService';
 
+/**
+ * It handles user authentication settings rendering and updating.
+ * It fetches user details and displays the user authentication settings.
+ *
+ * @component
+ */
 const AuthenticationSettings: React.FC = () => {
   const {
     data: userDetails,

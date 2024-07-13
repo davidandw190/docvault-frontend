@@ -35,6 +35,13 @@ const schema = z
     }
   });
 
+/**
+ * It handles user password updating.
+ * It fetches user details and displays the password update form.
+ *
+ * @component
+ * @param {Props} props - Props including userId, loading state, success state, and onUpdatePassword function.
+ */
 const UpdatePasswordForm: React.FC<Props> = ({
   userId,
   isUpdateLoading,

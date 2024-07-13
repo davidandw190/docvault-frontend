@@ -5,6 +5,13 @@ type Props = {
   isQrCodeLoading: boolean;
 };
 
+/**
+ * It handles MFA status rendering.
+ * It displays the QR code image for scanning to set up MFA.
+ *
+ * @component
+ * @param {Props} props - Props including MFA status, QR code image URI, and loading state.
+ */
 const MfaStatus: React.FC<Props> = ({
   isMfaEnabled,
   qrCodeImageUri,
