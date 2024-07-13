@@ -1,4 +1,5 @@
 import { IResponse } from '../../../models/IResponse';
+import PermissionsSection from './PermissionsSection';
 import ProfileContentLoader from '../ProfileContentLoader';
 import { Role } from '../../../models/IUser';
 import RoleSelection from './RoleSelection';
@@ -36,7 +37,9 @@ const AuthorizationSettings: React.FC = () => {
               onUpdateAccountRole={onUpdateRole}
               isUpdateRoleLoading={isUpdateRoleLoading}
             />
-            {/* TODO: add Permission Section Componetnt */}
+            <PermissionsSection
+              userAuhorities={userDetails.data.user.authorities}
+            />
           </div>
           <hr className="my-4" />
         </form>

@@ -20,7 +20,10 @@ const schema = z.object({
  * @component
  * @param {Props} props - Props including onSubmit function and loading state.
  */
-const ForgotPasswordForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
+const ForgotPasswordForm: React.FC<Props> = ({
+  onSubmit,
+  isLoading,
+}: Props) => {
   const { register, handleSubmit, formState, getFieldState } =
     useForm<ForgotPasswordRequest>({
       resolver: zodResolver(schema),
@@ -38,12 +41,11 @@ const ForgotPasswordForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
       noValidate
     >
       <div className="row g-3">
-      <small className="form-text text-muted">
-            Please enter the email address associated with your account. We will
-            send you a link to reset your password.
-          </small>
+        <small className="form-text text-muted">
+          Please enter the email address associated with your account. We will
+          send you a link to reset your password.
+        </small>
         <div className="col-12">
-          
           <label htmlFor="email" className="form-label">
             Email address
           </label>
