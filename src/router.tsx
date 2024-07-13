@@ -7,14 +7,19 @@ import {
 
 import AccountVerification from './pages/AccountVerification';
 import App from './App';
+import AuthenticationSettings from './components/profile/authentication/AuthenticationSettings';
+import AuthorizationSettings from './components/profile/authorization/AuthorizationSettings';
 import ForgottenPassword from './pages/ForgottenPassword';
 import Login from './pages/Login';
 import NavBar from './components/navigation/NavBar';
 import Profile from './pages/Profile';
+import ProfileDetails from './components/profile/details/ProfileDetails';
+import ProfileSettings from './components/profile/settings/ProfileSettings';
 import ProtectedRoute from './components/ProtectedRoute';
 import Registration from './pages/Registration';
 import ResetPassword from './pages/ResetPassword';
 import RestrictedRoute from './components/RestrictedRoute';
+import UpdatePassword from './components/profile/password/UpdatePassword';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,11 +45,11 @@ const router = createBrowserRouter(
               path="/profile"
               element={<Navigate to="/profile/details" />}
             />
-            <Route path="details" element={<div>Profile Details</div>} />
-            <Route path="password" element={<div>Password</div>} />
-            <Route path="settings" element={<div>Settings</div>} />
-            <Route path="authorization" element={<div>Authorization</div>} />
-            <Route path="authentication" element={<div>Authentication</div>} />
+            <Route path="details" element={<ProfileDetails />} />
+            <Route path="password" element={<UpdatePassword />} />
+            <Route path="settings" element={<ProfileSettings />} />
+            <Route path="authorization" element={<AuthorizationSettings />} />
+            <Route path="authentication" element={<AuthenticationSettings />} />
             <Route path="*" element={<Navigate to="/profile/details" />} />
           </Route>
 
