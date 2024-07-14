@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
+import { documentAPI } from '../services/DocumentService';
 import logger from 'redux-logger';
 import { userAPI } from '../services/UserService';
 
@@ -11,6 +12,7 @@ import { userAPI } from '../services/UserService';
  */
 const rootReducer = combineReducers({
   [userAPI.reducerPath]: userAPI.reducer,
+  [documentAPI.reducerPath]: documentAPI.reducer,
 });
 
 /**
@@ -24,6 +26,7 @@ export const setupStore = (): ReturnType<typeof configureStore> => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false })
         .concat(userAPI.middleware)
+        .concat(documentAPI.middleware)
         .concat(logger),
   });
 };
