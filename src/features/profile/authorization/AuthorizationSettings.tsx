@@ -1,7 +1,7 @@
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import PermissionsSection from './PermissionsSection';
 import ProfileContentLoader from '../ProfileContentLoader';
-import { Role } from '../../../types/IUser';
+import { Role } from '../../../types/user.types';
 import RoleSelection from './RoleSelection';
 import { userAPI } from '../../../services/UserService';
 

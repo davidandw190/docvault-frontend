@@ -1,10 +1,10 @@
 import { BASE_URL, isJsonContentType, processError, processResponse } from '../utils/request.utils';
 
-import { IResponse } from '../types/IResponse';
+import { IResponse } from '../types/interfaces/IResponse';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Http from '../enums/http.method';
-import { DocumentsPage } from '../types/IPage';
-import { DocumentsQuery } from '../types/IDocument';
+import { DocumentsPage } from '../types/interfaces/IPage';
+import { DocumentsQuery } from '../types/document.types';
 
 export const documentAPI = createApi({
     reducerPath: 'documentAPI',

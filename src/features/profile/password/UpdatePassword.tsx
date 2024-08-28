@@ -1,7 +1,7 @@
-import { IResponse } from '../../../types/IResponse';
-import { IUpdateUserPasswordRequest } from '../../../types/IUser';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import ProfileContentLoader from '../ProfileContentLoader';
 import UpdatePasswordForm from './UpdatePasswordForm';
+import { UpdateUserPasswordRequest } from '../../../types/user.types';
 import { userAPI } from '../../../services/UserService';
 
 /**
@@ -20,7 +20,7 @@ const UpdatePassword: React.FC = () => {
     const [updateUserPassword, { isLoading: isUpdateLoading, isSuccess: isUpdateSuccess }] =
         userAPI.useUpdateUserPasswordMutation();
 
-    const onUpdatePassword = async (data: IUpdateUserPasswordRequest) => {
+    const onUpdatePassword = async (data: UpdateUserPasswordRequest) => {
         await updateUserPassword(data);
     };
 

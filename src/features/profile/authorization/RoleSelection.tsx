@@ -1,5 +1,5 @@
 import AccountRoles from '../../../enums/account.role';
-import { Role } from '../../../types/IUser';
+import { Role } from '../../../types/user.types';
 
 type Props = {
     userRole: string;

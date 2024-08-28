@@ -1,24 +1,24 @@
-import { IUser } from './IUser';
+import { IUser } from './interfaces/IUser';
 
 /**
- * Interface representing a login request payload.
+ * Type representing a login request payload.
  *
- * @interface
+ * @type
  */
-export interface ILoginRequest {
+export type LoginRequest = {
     email: string;
     password: string;
     rememberMe?: boolean;
-}
+};
 
 /**
- * Interface representing a registration request payload.
+ * Type representing a registration request payload.
  *
- * @extends {ILoginRequest}
+ * @extends {LoginRequest}
  *
- * @interface
+ * @type
  */
-export interface IRegistrationRequest extends ILoginRequest {
+export interface RegistrationRequest extends LoginRequest {
     firstName: string;
     lastName: string;
     phone?: string;
@@ -44,15 +44,15 @@ export type QrCodeRequest = Pick<IUser, 'userId'> & {
 
 export type ForgotPasswordRequest = Pick<IUser, 'email'>;
 
-export interface IResetPasswordExternallyRequest {
+export type ResetPasswordExternallyRequest = {
     userId: string;
     newPassword: string;
     confirmNewPassword: string;
-}
+};
 
-export interface IUpdatePasswordRequest {
+export type IUpdatePasswordRequest = {
     userId: string;
     password: string;
     newPassword: string;
     confirmNewPassword: string;
-}
+};

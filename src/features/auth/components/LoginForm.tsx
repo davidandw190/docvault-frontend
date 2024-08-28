@@ -1,4 +1,4 @@
-import { ILoginRequest } from '../../../types/ICredentails';
+import { LoginRequest } from '../../../types/credentails.types';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,7 @@ const loginSchema = z.object({
 });
 
 type Props = {
-    loginUser: (credentials: ILoginRequest) => void;
+    loginUser: (credentials: LoginRequest) => void;
     isLoading: boolean;
 };
 
@@ -22,16 +22,16 @@ type Props = {
  * @param {Props} props - Props including loginUser function, error state, and loading state.
  */
 const LoginForm = ({ loginUser, isLoading }: Props) => {
-    const { register, handleSubmit, formState, getFieldState } = useForm<ILoginRequest>({
+    const { register, handleSubmit, formState, getFieldState } = useForm<LoginRequest>({
         resolver: zodResolver(loginSchema),
         mode: 'onTouched'
     });
 
-    const isFieldValid = (fieldName: keyof ILoginRequest): boolean =>
+    const isFieldValid = (fieldName: keyof LoginRequest): boolean =>
         getFieldState(fieldName, formState).isTouched &&
         !getFieldState(fieldName, formState).invalid;
 
-    const handleLogin = (credentials: ILoginRequest) => loginUser(credentials);
+    const handleLogin = (credentials: LoginRequest) => loginUser(credentials);
 
     return (
         <form onSubmit={handleSubmit(handleLogin)} className="needs-validation" noValidate>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { IUpdateUserPasswordRequest } from '../../../types/IUser';
-import PassStrengthBar from '../../auth/components/PassStrengthBar';
+import PassStrengthBar from '../../../components/auth/PassStrengthBar';
+import { UpdateUserPasswordRequest } from '../../../types/user.types';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +10,7 @@ type Props = {
     userId: string;
     isUpdateLoading: boolean;
     isUpdateSuccess: boolean;
-    onUpdatePassword: (data: IUpdateUserPasswordRequest) => void;
+    onUpdatePassword: (data: UpdateUserPasswordRequest) => void;
 };
 
 const schema = z
@@ -47,12 +47,12 @@ const UpdatePasswordForm: React.FC<Props> = ({
     onUpdatePassword
 }: Props) => {
     const { register, handleSubmit, formState, getFieldState, reset, watch } =
-        useForm<IUpdateUserPasswordRequest>({
+        useForm<UpdateUserPasswordRequest>({
             resolver: zodResolver(schema),
             mode: 'onTouched'
         });
 
-    const isFieldValid = (fieldName: keyof IUpdateUserPasswordRequest): boolean =>
+    const isFieldValid = (fieldName: keyof UpdateUserPasswordRequest): boolean =>
         getFieldState(fieldName, formState).isTouched &&
         !getFieldState(fieldName, formState).invalid;
     useEffect(() => {

@@ -1,5 +1,5 @@
 import ActionLinks from '../../../components/auth/ActionLinks';
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import { InvalidLinkMessage } from '../../../components/auth/InvalidLinkMessage';
 import VerificationErrorMessage from '../../../components/auth/VerificationErrorMessage';
 import VerificationSuccessMessage from '../../../components/auth/VerificationSuccessMessage';

@@ -3,8 +3,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 import ActionLinks from '../../../components/auth/ActionLinks';
 import CacheKey from '../../../enums/cache.key';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
-import { ForgotPasswordRequest } from '../../../types/ICredentails';
-import { IResponse } from '../../../types/IResponse';
+import { ForgotPasswordRequest } from '../../../types/credentails.types';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import { userAPI } from '../../../services/UserService';
 
 /**

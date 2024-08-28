@@ -1,12 +1,12 @@
-import { IResetPasswordExternallyRequest } from '../../../types/ICredentails';
-import PassStrengthBar from './PassStrengthBar';
+import PassStrengthBar from '../../../components/auth/PassStrengthBar';
+import { ResetPasswordExternallyRequest } from '../../../types/credentails.types';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props = {
-    onSubmit: (payload: IResetPasswordExternallyRequest) => void;
+    onSubmit: (payload: ResetPasswordExternallyRequest) => void;
     isLoading: boolean;
     userId: string;
 };
@@ -37,16 +37,16 @@ const schema = z
  */
 const ResetPasswordForm: React.FC<Props> = ({ onSubmit, isLoading, userId }) => {
     const { register, handleSubmit, formState, getFieldState, reset, watch } =
-        useForm<IResetPasswordExternallyRequest>({
+        useForm<ResetPasswordExternallyRequest>({
             resolver: zodResolver(schema),
             mode: 'onTouched'
         });
 
-    const isFieldValid = (fieldName: keyof IResetPasswordExternallyRequest): boolean =>
+    const isFieldValid = (fieldName: keyof ResetPasswordExternallyRequest): boolean =>
         getFieldState(fieldName, formState).isTouched &&
         !getFieldState(fieldName, formState).invalid;
 
-    const onResetPassword = (payload: IResetPasswordExternallyRequest) => {
+    const onResetPassword = (payload: ResetPasswordExternallyRequest) => {
         onSubmit(payload);
         reset();
     };

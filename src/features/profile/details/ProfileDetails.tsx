@@ -1,7 +1,7 @@
-import { IResponse } from '../../../types/IResponse';
-import { IUpdateProfileDetailsRequest } from '../../../types/IUser';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import ProfileContentLoader from '../ProfileContentLoader';
 import ProfileDetailsForm from './ProfileDetailsForm';
+import { UpdateProfileDetailsRequest } from '../../../types/user.types';
 import { userAPI } from '../../../services/UserService';
 
 /**
@@ -21,7 +21,7 @@ const ProfileDetails: React.FC = () => {
     const [updateUserDetails, { isLoading: isUpdateLoading }] =
         userAPI.useUpdateUserDetailsMutation();
 
-    const onUpdateProfileDetails = async (data: IUpdateProfileDetailsRequest) => {
+    const onUpdateProfileDetails = async (data: UpdateProfileDetailsRequest) => {
         await updateUserDetails(data);
     };
 

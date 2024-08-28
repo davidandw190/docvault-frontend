@@ -1,13 +1,13 @@
-import { IUpdateProfileDetailsRequest, IUser } from '../../../types/IUser';
-
 import AccountRoles from '../../../enums/account.role';
+import { IUser } from '../../../types/interfaces/IUser';
+import { UpdateProfileDetailsRequest } from '../../../types/user.types';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props = {
     user: IUser | undefined;
-    onUpdateProfileDetails: (request: IUpdateProfileDetailsRequest) => void;
+    onUpdateProfileDetails: (request: UpdateProfileDetailsRequest) => void;
     isUpdateLoading: boolean;
 };
 
@@ -40,12 +40,12 @@ const ProfileDetailsForm: React.FC<Props> = ({
     isUpdateLoading
 }: Props) => {
     const { register, handleSubmit, formState, getFieldState } =
-        useForm<IUpdateProfileDetailsRequest>({
+        useForm<UpdateProfileDetailsRequest>({
             resolver: zodResolver(schema),
             mode: 'onTouched'
         });
 
-    const isFieldValid = (fieldName: keyof IUpdateProfileDetailsRequest): boolean =>
+    const isFieldValid = (fieldName: keyof UpdateProfileDetailsRequest): boolean =>
         getFieldState(fieldName, formState).isTouched &&
         !getFieldState(fieldName, formState).invalid;
 

@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import ActionLinks from '../../../components/auth/ActionLinks';
 import CacheKey from '../../../enums/cache.key';
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import LoginForm from '../components/LoginForm';
 import QrCodeForm from '../components/QrCodeForm';
 import { userAPI } from '../../../services/UserService';

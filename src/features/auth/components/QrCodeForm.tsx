@@ -2,8 +2,8 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import ActionLinks from '../../../components/auth/ActionLinks';
 import CacheKey from '../../../enums/cache.key';
-import { IResponse } from '../../../types/IResponse';
-import { QrCodeRequest } from '../../../types/ICredentails';
+import { IResponse } from '../../../types/interfaces/IResponse';
+import { QrCodeRequest } from '../../../types/credentails.types';
 import { useForm } from 'react-hook-form';
 import { userAPI } from '../../../services/UserService';
 import { z } from 'zod';

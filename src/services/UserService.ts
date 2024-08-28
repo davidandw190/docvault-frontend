@@ -1,21 +1,22 @@
 import { BASE_URL, isJsonContentType, processError, processResponse } from '../utils/request.utils';
 
-import { IResponse } from '../types/IResponse';
+import { IResponse } from '../types/interfaces/IResponse';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import {
-    IUpdateProfileDetailsRequest,
-    IUpdateUserPasswordRequest,
-    Role,
-    User
-} from '../types/IUser';
+
 import {
     ForgotPasswordRequest,
-    ILoginRequest,
-    IRegistrationRequest,
-    IResetPasswordExternallyRequest,
+    LoginRequest,
+    RegistrationRequest,
+    ResetPasswordExternallyRequest,
     QrCodeRequest
-} from '../types/ICredentails';
+} from '../types/credentails.types';
 import Http from '../enums/http.method';
+import {
+    User,
+    Role,
+    UpdateProfileDetailsRequest,
+    UpdateUserPasswordRequest
+} from '../types/user.types';
 
 export const userAPI = createApi({
     reducerPath: 'userAPI',
@@ -36,7 +37,7 @@ export const userAPI = createApi({
             transformErrorResponse: processError,
             providesTags: () => ['User']
         }),
-        loginUser: builder.mutation<IResponse<User>, ILoginRequest>({
+        loginUser: builder.mutation<IResponse<User>, LoginRequest>({
             query: credentials => ({
                 url: '/login',
                 method: Http.POST,
@@ -45,7 +46,7 @@ export const userAPI = createApi({
             transformResponse: processResponse<User>,
             transformErrorResponse: processError
         }),
-        registerUser: builder.mutation<IResponse<void>, IRegistrationRequest>({
+        registerUser: builder.mutation<IResponse<void>, RegistrationRequest>({
             query: registrationRequest => ({
                 url: '/register',
                 method: Http.POST,
@@ -100,18 +101,16 @@ export const userAPI = createApi({
             transformErrorResponse: processError,
             invalidatesTags: (_, error) => (error ? [] : ['User'])
         }),
-        resetPasswordExternally: builder.mutation<IResponse<void>, IResetPasswordExternallyRequest>(
-            {
-                query: resetPasswordRequest => ({
-                    url: '/reset-password',
-                    method: Http.PATCH,
-                    body: resetPasswordRequest
-                }),
-                transformResponse: processResponse<void>,
-                transformErrorResponse: processError,
-                invalidatesTags: (_, error) => (error ? [] : ['User'])
-            }
-        ),
+        resetPasswordExternally: builder.mutation<IResponse<void>, ResetPasswordExternallyRequest>({
+            query: resetPasswordRequest => ({
+                url: '/reset-password',
+                method: Http.PATCH,
+                body: resetPasswordRequest
+            }),
+            transformResponse: processResponse<void>,
+            transformErrorResponse: processError,
+            invalidatesTags: (_, error) => (error ? [] : ['User'])
+        }),
         updateProfilePicture: builder.mutation<IResponse<string>, FormData>({
             query: formData => ({
                 url: '/profile/picture',
@@ -122,7 +121,7 @@ export const userAPI = createApi({
             transformErrorResponse: processError,
             invalidatesTags: (_, error) => (error ? [] : ['User'])
         }),
-        updateUserDetails: builder.mutation<IResponse<User>, IUpdateProfileDetailsRequest>({
+        updateUserDetails: builder.mutation<IResponse<User>, UpdateProfileDetailsRequest>({
             query: details => ({
                 url: '/profile/update/details',
                 method: Http.PATCH,
@@ -132,7 +131,7 @@ export const userAPI = createApi({
             transformErrorResponse: processError,
             invalidatesTags: (_, error) => (error ? [] : ['User'])
         }),
-        updateUserPassword: builder.mutation<IResponse<void>, IUpdateUserPasswordRequest>({
+        updateUserPassword: builder.mutation<IResponse<void>, UpdateUserPasswordRequest>({
             query: password => ({
                 url: '/profile/update/password',
                 method: Http.PATCH,

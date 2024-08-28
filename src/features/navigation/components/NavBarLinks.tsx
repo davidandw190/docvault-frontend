@@ -1,5 +1,5 @@
 import AccountRoles from '../../../enums/account.role';
-import { IUser } from '../../../types/IUser';
+import { IUser } from '../../../types/interfaces/IUser';
 import { NavLink } from 'react-router-dom';
 import React from 'react';
 

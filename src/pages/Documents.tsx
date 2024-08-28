@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { DocumentsQuery } from '../types/IDocument';
+import { DocumentsQuery } from '../types/document.types';
 import { documentAPI } from '../services/DocumentService';
 
 const Documents: React.FC = () => {

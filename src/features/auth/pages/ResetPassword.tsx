@@ -1,7 +1,7 @@
 import ActionLinks from '../../../components/auth/ActionLinks';
-import { IResetPasswordExternallyRequest } from '../../../types/ICredentails';
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import { InvalidLinkMessage } from '../../../components/auth/InvalidLinkMessage';
+import { ResetPasswordExternallyRequest } from '../../../types/credentails.types';
 import ResetPasswordForm from '../components/ResetPasswordForm';
 import VerificationErrorMessage from '../../../components/auth/VerificationErrorMessage';
 import VerifyingAccount from '../../../components/auth/VerifyingAccount';
@@ -35,7 +35,7 @@ const ResetPassword: React.FC = () => {
         { error: resetError, isLoading: isResetLoading, isSuccess: isResetSuccess }
     ] = userAPI.useResetPasswordExternallyMutation();
 
-    const onResetPassword = async (payload: IResetPasswordExternallyRequest) => {
+    const onResetPassword = async (payload: ResetPasswordExternallyRequest) => {
         await resetPasswordExternally(payload);
     };
 

@@ -1,7 +1,7 @@
 import ActionLinks from '../../../components/auth/ActionLinks';
-import { IRegistrationRequest } from '../../../types/ICredentails';
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import RegistrationForm from '../components/RegistrationForm';
+import { RegistrationRequest } from '../../../types/credentails.types';
 import { userAPI } from '../../../services/UserService';
 
 /**
@@ -14,7 +14,7 @@ const Registration: React.FC = () => {
     const [registerUser, { data: response, isLoading, error, isSuccess }] =
         userAPI.useRegisterUserMutation();
 
-    const onRegister = async (credentials: IRegistrationRequest) => await registerUser(credentials);
+    const onRegister = async (credentials: RegistrationRequest) => await registerUser(credentials);
 
     return (
         <div className="container">

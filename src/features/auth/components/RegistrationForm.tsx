@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { IRegistrationRequest } from '../../../types/ICredentails';
-import PassStrengthBar from './PassStrengthBar';
+import PassStrengthBar from '../../../components/auth/PassStrengthBar';
+import { RegistrationRequest } from '../../../types/credentails.types';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 type Props = {
-    onRegistration: (credentials: IRegistrationRequest) => void;
+    onRegistration: (credentials: RegistrationRequest) => void;
     isLoading: boolean;
     isSuccess: boolean;
 };
@@ -35,14 +35,14 @@ const registrationSchema = z
  */
 const RegistrationForm: React.FC<Props> = ({ onRegistration, isLoading, isSuccess }: Props) => {
     const { register, reset, handleSubmit, formState, getFieldState, watch } =
-        useForm<IRegistrationRequest>({
+        useForm<RegistrationRequest>({
             resolver: zodResolver(registrationSchema),
             mode: 'onTouched'
         });
 
     const [passwordStrength, setPasswordStrength] = useState(0);
 
-    const isFieldValid = (fieldName: keyof IRegistrationRequest): boolean =>
+    const isFieldValid = (fieldName: keyof RegistrationRequest): boolean =>
         getFieldState(fieldName, formState).isTouched &&
         !getFieldState(fieldName, formState).invalid;
 

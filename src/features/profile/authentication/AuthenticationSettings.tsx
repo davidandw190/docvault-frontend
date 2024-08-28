@@ -1,4 +1,4 @@
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import LastLoginStatus from './LastLoginStatus';
 import MfaStatus from './MfaStatus';
 import ProfileContentLoader from '../ProfileContentLoader';

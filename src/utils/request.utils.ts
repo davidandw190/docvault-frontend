@@ -1,6 +1,6 @@
 import CacheKey from '../enums/cache.key';
 import { FetchBaseQueryMeta } from '@reduxjs/toolkit/query';
-import { IResponse } from '../types/IResponse';
+import { IResponse } from '../types/interfaces/IResponse';
 
 export const BASE_URL = import.meta.env.BACKEND_BASE_URL as string;
 

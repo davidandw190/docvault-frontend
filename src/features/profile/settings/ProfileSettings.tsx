@@ -1,7 +1,7 @@
 import AccountSettings from '../../../enums/account.settings';
 import AccountSettingsList from './AccountSettingsList';
 import CredentialsSettingsList from './CredentialsSettingsList';
-import { IResponse } from '../../../types/IResponse';
+import { IResponse } from '../../../types/interfaces/IResponse';
 import ProfileContentLoader from '../ProfileContentLoader';
 import { userAPI } from '../../../services/UserService';
 
