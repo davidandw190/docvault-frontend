@@ -1,9 +1,11 @@
 import DocumentList from './DocumentList';
 import { DocumentsQuery } from '../../../types/document.types';
+import PageSizeSelector from './PageSizeSelector';
 import Pagination from './DocumentsPagination';
 import React from 'react';
 import ResultsSummary from './ResultsSummary';
 import SearchBar from './SearchBar';
+import UploadButton from './UploadButton';
 
 interface DocumentsProps {
     searchQuery: DocumentsQuery;
@@ -42,8 +44,15 @@ const Documents: React.FC<DocumentsProps> = ({
                         <div className="candidate-list-widgets">
                             <div className="row">
                                 <SearchBar onSearch={name => onQueryChange({ name, page: 0 })} />
-                                {/* TODO: Add ResultsSizeSelector component here */}
-                                {/* TODO: Add Upload Button component here */}
+                                <PageSizeSelector
+                                    value={searchQuery.size}
+                                    onChange={(size: number) =>
+                                        onQueryChange({ size: Number(size) })
+                                    }
+                                />
+                                <UploadButton
+                                    onUpload={() => console.log('upload button pressed.')}
+                                />
                             </div>
                         </div>
                     </div>
