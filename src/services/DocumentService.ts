@@ -1,34 +1,29 @@
-import { DocumentsPage } from '../models/IPage';
-import { DocumentsQuery } from '../models/IDocument';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
-import {
-  BASE_URL,
-  isJsonContentType,
-  processResponse,
-} from '../utils/request.utils';
-import { IResponse } from '../models/IResponse';
+import { BASE_URL, isJsonContentType, processError, processResponse } from '../utils/request.utils';
+
+import { IResponse } from '../types/IResponse';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import Http from '../enums/http.method';
-import { processError } from '../utils/request.utils';
+import { DocumentsPage } from '../types/IPage';
+import { DocumentsQuery } from '../types/IDocument';
 
 export const documentAPI = createApi({
-  reducerPath: 'documentAPI',
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-    credentials: 'include',
-    isJsonContentType,
-  }),
-  tagTypes: ['Documents'],
-  endpoints: (builder) => ({
-    queryDocuments: builder.query<IResponse<DocumentsPage>, DocumentsQuery>({
-      query: (searchQuery) => ({
-        url: `/documents/search?page=${searchQuery.page}&size=${searchQuery.size}&name=${searchQuery.name}`,
-        method: Http.GET,
-        params: searchQuery,
-      }),
-      keepUnusedDataFor: 120,
-      transformResponse: processResponse<DocumentsPage>,
-      transformErrorResponse: processError,
-      providesTags: () => ['Documents'],
+    reducerPath: 'documentAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: BASE_URL,
+        credentials: 'include',
+        isJsonContentType
     }),
-  }),
+    tagTypes: ['Documents'],
+    endpoints: builder => ({
+        searchDocuments: builder.query<IResponse<DocumentsPage>, DocumentsQuery>({
+            query: searchQuery => ({
+                url: `/search?page=${searchQuery.page}&size=${searchQuery.size}&name=${searchQuery.name}`,
+                method: Http.GET
+            }),
+            keepUnusedDataFor: 120,
+            transformResponse: processResponse<DocumentsPage>,
+            transformErrorResponse: processError,
+            providesTags: () => ['Documents']
+        })
+    })
 });

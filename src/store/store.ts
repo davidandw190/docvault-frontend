@@ -11,8 +11,8 @@ import { userAPI } from '../services/UserService';
  * @type {ReturnType<typeof combineReducers>}
  */
 const rootReducer = combineReducers({
-  [userAPI.reducerPath]: userAPI.reducer,
-  [documentAPI.reducerPath]: documentAPI.reducer,
+    [documentAPI.reducerPath]: documentAPI.reducer,
+    [userAPI.reducerPath]: userAPI.reducer
 });
 
 /**
@@ -21,14 +21,14 @@ const rootReducer = combineReducers({
  * @returns {ReturnType<typeof configureStore>} Configured Redux store.
  */
 export const setupStore = (): ReturnType<typeof configureStore> => {
-  return configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ serializableCheck: false })
-        .concat(userAPI.middleware)
-        .concat(documentAPI.middleware)
-        .concat(logger),
-  });
+    return configureStore({
+        reducer: rootReducer,
+        middleware: getDefaultMiddleware =>
+            getDefaultMiddleware({ serializableCheck: false })
+                .concat(userAPI.middleware)
+                .concat(documentAPI.middleware)
+                .concat(logger)
+    });
 };
 
 export type RootState = ReturnType<typeof rootReducer>;
